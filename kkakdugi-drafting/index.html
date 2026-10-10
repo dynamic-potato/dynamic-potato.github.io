@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>역동감자 깍두기 도면체</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<script>
+const _t = localStorage.getItem("kkakdugi-theme");
+document.documentElement.dataset.theme = ["blueprint", "plotter", "cad"].includes(_t) ? _t : "blueprint";
+</script>
+<style>
+
+@font-face { font-family: "Kkakdugi Drafting"; src: url("fonts/KkakdugiDrafting-ExtraLight.woff2") format("woff2"); font-weight: 200; font-display: swap; }
+@font-face { font-family: "Kkakdugi Drafting"; src: url("fonts/KkakdugiDrafting-Light.woff2") format("woff2"); font-weight: 300; font-display: swap; }
+@font-face { font-family: "Kkakdugi Drafting"; src: url("fonts/KkakdugiDrafting-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Kkakdugi Drafting"; src: url("fonts/KkakdugiDrafting-Bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+
+:root[data-theme="blueprint"] {
+  color-scheme: dark;
+  
+  --sl-track: rgba(234,242,250,0.28); --sl-track-h: 2px;
+  --sl-ticks: repeating-linear-gradient(90deg, var(--ink) 0 1px, transparent 1px 12px);
+  --sl-thumb: var(--bg); --sl-thumb-bd: 2px; --sl-size: 15px; --sl-radius: 0;
+  --bg: #10304f;
+  --surface: #0d2946;
+  --ink: #eaf2fa;
+  --ink-soft: #b3c8dc;
+  --line: #7d99b5;
+  --line-soft: #2e4d6c;
+  --grid: rgba(201,220,240,0.07);
+  --accent: #9cc4ee;
+  --em: var(--ink);              
+  --todo: #d9a94e;
+  --rev: var(--ink);
+}
+:root[data-theme="plotter"] {
+  color-scheme: light;
+  
+  --sl-track: var(--ink); --sl-track-h: 1px;
+  --sl-ticks: repeating-linear-gradient(90deg, var(--line) 0 1px, transparent 1px 12px);
+  --sl-thumb: var(--ink); --sl-size: 13px; --sl-radius: 50%;
+  --bg: #faf8f2;
+  --surface: #ffffff;
+  --ink: #202836;
+  --ink-soft: #5b6472;
+  --line: #97a0ad;
+  --line-soft: #dcdfe4;
+  --grid: rgba(32,40,54,0.06);
+  --accent: #185a9e;
+  --em: #bd3a2b;                 
+  --todo: #a06f1c;
+  --rev: var(--ink);
+}
+:root[data-theme="cad"] {
+  color-scheme: dark;
+  
+  --sl-track: var(--line); --sl-track-h: 1px;
+  --sl-ticks: repeating-linear-gradient(90deg, var(--accent) 0 1px, transparent 1px 16px);
+  --sl-thumb: var(--bg); --sl-thumb-bd: 2px; --sl-size: 12px; --sl-radius: 0;
+  --sl-rotate: rotate(45deg);
+  --bg: #0b0d10;
+  --surface: #12151a;
+  --ink: #e6e9ec;
+  --ink-soft: #97a1ab;
+  --line: #5a636d;
+  --line-soft: #262c33;
+  --grid: rgba(230,233,236,0.06);
+  --accent: #4fc0d0;
+  --em: var(--accent);           
+  --todo: #d9a94e;
+  
+  --rev: #ff3b30;
+  
+  --dwg-dim: #ffd93b;
+  --dwg-geom: #3fd47a;
+  --dwg-note: #e6e9ec;
+  --dwg-rev-row: var(--rev);
+  --dwg-center: #ff4fd8;         
+}
+:root { --seal: #bd3a2b; }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; font-size: 17px; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Kkakdugi Drafting", sans-serif;
+  line-height: 1.75;
+}
+
+*, *::before, *::after {
+  transition: background-color 0.45s ease, border-color 0.45s ease, color 0.45s ease;
+}
+body, .hero-c, .sheet,
+#tester, .tester-controls select, .tester-controls button, .form-items, .form-item,
+.theme-switch button, .glyphrow .row {
+  transition: background-color 0.45s ease, color 0.45s ease, border-color 0.45s ease;
+}
+
+.glyphrow .row span { transition: background-color 0.08s ease; }
+
+.dwg-svg svg [fill*="var("], .dwg-svg svg [stroke*="var("] {
+  transition: fill 0.45s ease, stroke 0.45s ease;
+}
+
+.dwg-svg svg text, .hero-dwg svg text {
+  font-family: "Kkakdugi Drafting", sans-serif !important; font-weight: 300 !important;
+}
+section { max-width: 1080px; margin: 0 auto; padding: 84px 24px 0; }
+h2 {
+  font-family: "Kkakdugi Drafting", sans-serif;
+  font-weight: 700; font-size: 1.75rem; letter-spacing: 0.07em;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 8px; margin-bottom: 26px;
+}
+
+.story-sec { padding-top: 64px; }
+.story-big {
+  text-align: center; font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300;
+  font-size: clamp(1.5rem, 3.6vw, 2.6rem); line-height: 1.95; letter-spacing: 0.01em;
+}
+.story-big strong { font-weight: 700; color: var(--em, var(--ink)); }
+.story-fn { text-align: center; font-size: 1rem; color: var(--ink-soft); margin-top: 20px; }
+.story-fold { margin-top: 30px; }
+.story-full { max-width: 58em; padding-bottom: 8px; }
+.story-full h4 { font-family: "Kkakdugi Drafting", sans-serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 12px; }
+.story-full p { margin-bottom: 14px; font-size: 1.1rem; color: var(--ink-soft); line-height: 1.9; }
+.scene-note { font-size: 1.16rem; color: var(--ink-soft); margin-bottom: 22px; max-width: 58em; }
+
+.sub + .sub { margin-top: 72px; }
+.sub-h {
+  font-family: "Kkakdugi Drafting", sans-serif;
+  font-weight: 700; font-size: 1.5rem; letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 7px; margin-bottom: 20px;
+  display: flex; align-items: baseline; gap: 12px;
+}
+.sub-h .n { font-weight: 200; font-size: 1rem; color: var(--ink-soft); flex: none; }
+
+.grain {
+  position: fixed; inset: 0; pointer-events: none; z-index: 60; opacity: 0;
+  background-image: url("img/grain.svg");
+  transition: opacity 0.45s ease;
+}
+.grain.g-photo { mix-blend-mode: overlay; }
+.grain.g-paper { mix-blend-mode: multiply; }
+:root[data-theme="blueprint"] .g-photo { opacity: 0.5; }   
+:root[data-theme="plotter"] .g-paper { opacity: 0.07; }
+
+.switch-dock {
+  position: sticky; top: 14px; z-index: 70;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 6px;
+  
+  max-width: 1080px; margin: -8px auto 26px; padding: 0 24px; pointer-events: none;
+}
+.switch-dock > * { pointer-events: auto; }
+.theme-switch {
+  display: flex; width: 264px; border: 1px solid var(--line);
+  background: var(--bg);
+  font-family: "Kkakdugi Drafting", sans-serif;
+}
+.theme-switch button {
+  font-family: inherit; font-size: 0.88rem; font-weight: 300; letter-spacing: 0.04em;
+  flex: 1; padding: 3px 0; line-height: 1.25; text-align: center; border: 0; background: transparent;
+  color: var(--ink-soft); cursor: pointer;
+}
+.theme-switch button + button { border-left: 1px solid var(--line-soft); }
+.theme-switch button.on { background: var(--ink); color: var(--bg); }
+.theme-switch .era { display: block; font-size: 0.8rem; font-weight: 400; letter-spacing: 0.02em; opacity: 0.85; line-height: 1.15; }   
+
+.hero { padding: 44px 24px 52px; }
+
+.hero-c {
+  max-width: 1080px; margin: 0 auto; border: 1px solid var(--line); background: var(--surface);
+  display: grid; grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+}
+.hero-c-left { padding: 52px 40px 44px; display: flex; flex-direction: column; justify-content: center; }
+.hero-c-foot {
+  margin-top: 30px; padding-top: 14px; border-top: 1px solid var(--line-soft);
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 20px;
+}
+.hero-c-meta {
+  min-width: 0;                      
+  font-family: "Kkakdugi Drafting", sans-serif; font-weight: 200; font-size: 0.92rem;
+  color: var(--ink-soft); letter-spacing: 0.05em; line-height: 2;
+}
+.hero-c-right { position: relative; overflow: hidden; border-left: 1px solid var(--line); min-height: 460px; }
+.hero-dwg {
+  position: absolute; inset: 0; color: var(--ink);
+  
+  user-select: none; -webkit-user-select: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 22%, #000 100%);
+  mask-image: linear-gradient(90deg, transparent, #000 22%, #000 100%);
+}
+
+.hero-dwg { --dwg-w: 343.1%; --dwg-x: -60.2%; --dwg-y: -79.4%; }
+.hero-dwg svg { position: absolute; width: var(--dwg-w); height: auto; left: var(--dwg-x); top: var(--dwg-y); }
+
+.hero-dwg .dwg-geom { color: var(--dwg-geom, currentColor); }
+.hero-dwg .dwg-dim { color: var(--dwg-dim, currentColor); }
+.hero-dwg .dwg-note, .hero-dwg .dwg-frame { color: var(--dwg-note, currentColor); }
+.hero-dwg .dwg-rev-row { color: var(--dwg-rev-row, currentColor); }
+.hero-dwg .dwg-center { color: var(--dwg-center, currentColor); }
+.hero-dwg svg [fill*="var("], .hero-dwg svg [stroke*="var("] { transition: fill 0.45s ease, stroke 0.45s ease; }
+@media (max-width: 860px) {
+  .hero-c { grid-template-columns: 1fr; }
+  .hero-c-right { min-height: 320px; border-left: 0; border-top: 1px solid var(--line); }
+}
+.hero h1 {
+  font-family: "Kkakdugi Drafting", sans-serif; font-weight: 700;
+  
+  font-size: clamp(2.6rem, 5.4vw, 4.05rem); line-height: 1.12; color: var(--ink);
+  letter-spacing: 0.02em;
+}
+.hero .sub {
+  font-family: "Kkakdugi Drafting", sans-serif; font-weight: 200;
+  font-size: clamp(1rem, 2.2vw, 1.3rem); margin-top: 8px; letter-spacing: 0.03em;
+  color: var(--ink-soft);
+}
+.hero .tagline { margin-top: 24px; max-width: 30em; font-size: 1.18rem; }
+.hero-cta { margin-top: 30px; display: flex; gap: 12px; flex-wrap: wrap; }
+.btn {
+  font-family: "Kkakdugi Drafting", sans-serif; font-weight: 700; font-size: 1rem;
+  padding: 11px 24px; border: 2px solid var(--ink); color: var(--ink); background: var(--bg);
+  text-decoration: none; cursor: pointer;
+  transition: background-color 0.45s ease, color 0.45s ease, border-color 0.45s ease;
+}
+.btn.primary { background: var(--ink); color: var(--bg); }
+.btn:active { transform: translateY(1px); }
+
+.seal {
+  flex: none;
+  border: 3px solid var(--seal); color: var(--seal);
+  width: 72px; height: 72px; display: grid; place-items: center;
+  font-family: "Kkakdugi Drafting", sans-serif; font-weight: 700; font-size: 1.3rem;
+  writing-mode: vertical-rl; letter-spacing: 0.1em; line-height: 1.05;
+  transform: rotate(-3deg);
+}
+
+.tester-controls { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; margin-bottom: 16px; font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300; }
+.tester-controls label { font-size: 1rem; color: var(--ink-soft); }
+.tester-controls select, .tester-controls button {
+  font-family: inherit; font-size: 0.9rem; padding: 6px 13px;
+  border: 1px solid var(--line); background: var(--surface); cursor: pointer; color: var(--ink);
+}
+.tester-controls button.on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+.tester-controls input[type=range] {
+  -webkit-appearance: none; appearance: none; width: 190px; height: 22px;
+  background: transparent; cursor: pointer; vertical-align: middle;
+}
+.tester-controls input[type=range]::-webkit-slider-runnable-track {
+  height: var(--sl-track-h, 2px); background: var(--sl-track, var(--line));
+  background-image: var(--sl-ticks, none); background-repeat: repeat-x;
+}
+.tester-controls input[type=range]::-moz-range-track {
+  height: var(--sl-track-h, 2px); background: var(--sl-track, var(--line));
+  background-image: var(--sl-ticks, none); background-repeat: repeat-x;
+}
+.tester-controls input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: var(--sl-size, 14px); height: var(--sl-size, 14px);
+  margin-top: calc((var(--sl-track-h, 2px) - var(--sl-size, 14px)) / 2);
+  background: var(--sl-thumb, var(--ink)); border: var(--sl-thumb-bd, 0) solid var(--ink);
+  border-radius: var(--sl-radius, 0); transform: var(--sl-rotate, none);
+}
+.tester-controls input[type=range]::-moz-range-thumb {
+  width: var(--sl-size, 14px); height: var(--sl-size, 14px); box-sizing: border-box;
+  background: var(--sl-thumb, var(--ink)); border: var(--sl-thumb-bd, 0) solid var(--ink);
+  border-radius: var(--sl-radius, 0); transform: var(--sl-rotate, none);
+}
+#sizeval { font-variant-numeric: tabular-nums; color: var(--ink); }
+#tester {
+  border: 1px solid var(--line); padding: 30px; min-height: 160px;
+  font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300; font-size: 46px; line-height: 1.5;
+  outline: none; white-space: pre-wrap; word-break: break-all; background: var(--surface);
+}
+#tester:focus { border-color: var(--ink); }
+.tester-hint { font-size: 1.02rem; color: var(--ink-soft); margin-top: 8px; }
+
+.cmp { position: relative; border: 1px solid var(--line); background: var(--surface); overflow: hidden;
+  user-select: none; touch-action: none; cursor: ew-resize; }
+.cmp-layer { padding: 40px 24px 44px; white-space: nowrap; overflow: hidden; text-align: center;
+  font-size: clamp(2rem, 5.4vw, 4rem); line-height: 1.4; letter-spacing: 0.02em; }
+.cmp-a { color: var(--ink-soft); font-family: Gulim, 굴림, Dotum, 돋움, "Malgun Gothic", sans-serif; }
+.cmp-b { position: absolute; inset: 0; color: var(--ink); font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300;
+  background: var(--surface); clip-path: inset(0 0 0 var(--wipe, 50%)); }
+.cmp-div { position: absolute; top: 0; bottom: 0; left: var(--wipe, 50%); width: 1px;
+  background: var(--accent); pointer-events: none; }
+
+.cmp-div::after {
+  content: ""; position: absolute; top: 50%; left: 50%;
+  width: calc(var(--sl-size, 14px) * 1.6); height: calc(var(--sl-size, 14px) * 1.6);
+  
+  transform: translate(-50%, -50%) var(--sl-rotate, rotate(0deg));
+  background: var(--sl-thumb, var(--ink));
+  border: calc(var(--sl-thumb-bd, 0px) * 1.4) solid var(--ink);
+  border-radius: var(--sl-radius, 0);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+}
+
+.cmp-cue { position: absolute; top: 16px; left: 50%; width: 128px; height: 24px;
+  transform: translateX(-50%); pointer-events: none; display: none; }
+.cmp-cue.on { display: block; animation: cueBlink 1.4s ease-in-out infinite; }
+.cmp-cue::before, .cmp-cue::after {
+  content: ""; position: absolute; top: 50%; width: 0; height: 0;
+  border: 11px solid transparent; transform: translateY(-50%);
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));
+}
+.cmp-cue::before { left: 0; border-right-color: var(--ink); }
+.cmp-cue::after { right: 0; border-left-color: var(--ink); }
+.cmp-tag { position: absolute; bottom: 8px; font-family: "Kkakdugi Drafting", sans-serif;
+  font-size: 0.92rem; font-weight: 200; color: var(--ink-soft); pointer-events: none; }
+.cmp-tag.l { left: 14px; max-width: calc(50% - 28px); } .cmp-tag.r { right: 14px; }
+.cmp-sets { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }
+.cmp-sets button { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300; font-size: 0.92rem; padding: 6px 14px;
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+.cmp-sets button.on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.switch-row { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.switch-lbl { font-size: 0.8rem; color: var(--ink-soft); flex: 0 0 auto; min-width: 4.2em; }
+.switch-row .cmp-sets { flex: 1 1 auto; }
+
+.dock-row { display: flex; align-items: center; gap: 10px; }
+.theme-cue {
+  display: none; align-items: center; gap: 8px; white-space: nowrap;
+  font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300; font-size: 0.98rem; color: var(--accent);
+}
+.theme-cue.on { display: flex; animation: cueBlink 1.5s ease-in-out infinite; }
+.theme-cue.fade { animation: cueOut 0.5s ease forwards; }
+.cue-arrow { width: 0; height: 0; border: 7px solid transparent; border-left-color: currentColor; }
+@keyframes cueBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+@keyframes cueOut { to { opacity: 0; transform: translateX(-8px); } }
+@media (prefers-reduced-motion: reduce) { .theme-cue.on { animation: none; } }
+@media (max-width: 820px) { .theme-cue { display: none !important; } }
+
+.sheet { background: var(--bg); font-family: "Kkakdugi Drafting", sans-serif; }
+.sheet-body { display: grid; grid-template-columns: 1fr; }
+.sheet-canvas { padding: 0; }
+
+.dwg-view { position: relative; overflow: hidden; height: 840px; cursor: none; }
+
+.ch-x, .ch-y { position: absolute; background: var(--accent); opacity: 0; pointer-events: none; z-index: 4; }
+.ch-x.on, .ch-y.on { opacity: 0.6; }
+.ch-x { left: 0; right: 0; height: 1px; }
+.ch-y { top: 0; bottom: 0; width: 1px; }
+
+.dwg-content { position: absolute; inset: 0; }
+
+.dwg-svg {
+  position: absolute; inset: 0; padding: 90px 0;
+  transition: opacity 0.45s ease;
+}
+.dwg-svg { display: grid; place-items: center; }
+
+.dwg-svg, .lens { will-change: opacity; }
+
+.dwg-svg { color: var(--ink); transition: opacity 0.45s ease; }
+.dwg-svg svg, .dwg-svg svg * { transition: none; }
+
+.dwg-svg .dwg-geom { color: var(--dwg-geom, currentColor); }
+.dwg-svg .dwg-dim  { color: var(--dwg-dim, currentColor); }
+.dwg-svg .dwg-note, .dwg-svg .dwg-frame { color: var(--dwg-note, currentColor); }
+
+.dwg-svg .dwg-rev-row { color: var(--dwg-rev-row, currentColor); }
+.dwg-svg .dwg-center { color: var(--dwg-center, currentColor); }   
+.dwg-prev { z-index: 1; opacity: 0; pointer-events: none; }
+
+@media (hover: none), (pointer: coarse) {
+  .dwg-view { cursor: auto; }
+  .lens, .lens-frame, .ch-x, .ch-y { display: none !important; }
+}
+.dwg-svg svg { width: 100%; height: 100%; }
+
+:root { --lens-size: 300px; }
+.lens {
+  position: absolute; width: var(--lens-size); height: var(--lens-size); border-radius: 50%;
+  border: 3px solid var(--ink); overflow: hidden; pointer-events: none;
+  background: var(--surface); z-index: 5;
+  
+  box-shadow: 0 4px 18px rgba(0,0,0,0.3);
+  opacity: 0;
+}
+.lens.on { opacity: 1; }
+
+.lens-frame {
+  position: absolute; width: var(--frame-size, 482px); height: var(--frame-size, 482px);
+  transform: translate(-50%, -50%); pointer-events: none;
+  opacity: 0; z-index: 6;
+  filter: drop-shadow(0 7px 16px rgba(0,0,0,0.4));
+}
+:root[data-theme="blueprint"] .lens-frame.brass.on { opacity: 1; }
+:root[data-theme="plotter"] .lens-frame.housing.on { opacity: 1; }
+
+.lens-frame.housing { --frame-size: 390px; filter: drop-shadow(0 6px 13px rgba(0,0,0,0.32)); }
+.lens-inner { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+
+.lens-glass { position: absolute; inset: 0; border-radius: 50%; overflow: hidden; }
+
+:root[data-theme="blueprint"] .lens::after {
+  content: ""; position: absolute; inset: 0; border-radius: 50%;
+  background: conic-gradient(from 130deg,
+    transparent 0deg, rgba(255,90,90,0.9) 30deg, rgba(255,215,90,0.9) 58deg,
+    rgba(120,255,160,0.9) 86deg, rgba(110,190,255,0.9) 114deg,
+    rgba(185,125,255,0.85) 142deg, transparent 172deg, transparent 360deg);
+  opacity: 0.26; mix-blend-mode: screen; filter: blur(7px);
+  -webkit-mask-image: radial-gradient(circle, transparent 58%, #000 78%, transparent 96%);
+  mask-image: radial-gradient(circle, transparent 58%, #000 78%, transparent 96%);
+}
+
+:root[data-theme="cad"] .lens {
+  border: 1px solid var(--accent); background: var(--bg); box-shadow: none;
+}
+.dwg-hint-top { margin-bottom: 12px; }
+.dwg-hint-top .dwg-hint { margin-top: 0; }
+.dwg-hint {
+  margin-top: 10px; font-family: "Kkakdugi Drafting", sans-serif; font-weight: 200;
+  font-size: 0.98rem; color: var(--ink-soft); letter-spacing: 0.03em;
+}
+
+.sheet-notes { padding: 18px 20px; font-size: 1.08rem; }
+.sheet-notes h4 { font-size: 1.12rem; font-weight: 700; border-bottom: 1px solid var(--line-soft); padding-bottom: 4px; margin-bottom: 10px; }
+.sheet-notes ol { margin-left: 1.3em; font-weight: 300; }
+.sheet-notes li { margin-bottom: 4px; }
+.titleblock { border-top: 2px solid var(--ink); display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr 1.2fr; }
+.titleblock .cell { border-right: 1px solid var(--line-soft); padding: 6px 12px 8px; }
+.titleblock .cell:last-child { border-right: 0; }
+.titleblock .k { display: block; font-size: 0.76rem; font-weight: 300; color: var(--ink-soft); letter-spacing: 0.12em; }
+.titleblock .v { font-size: 1.1rem; font-weight: 700; }
+.revtable { border-top: 1px solid var(--line-soft); display: grid; grid-template-columns: 60px 1fr 110px 90px; font-size: 0.96rem; }
+.revtable div { border-right: 1px solid var(--line-soft); border-top: 1px solid var(--line-soft); padding: 3px 10px; font-weight: 300; }
+.revtable .h { font-weight: 700; border-top: 0; }
+.revtable div:nth-child(4n) { border-right: 0; }
+
+.cov-head { display: grid; grid-template-columns: auto 1fr; gap: 40px; align-items: end; margin-bottom: 34px; }
+.cov-head .big-n { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 700; font-size: clamp(3.4rem, 8vw, 5.2rem); line-height: 1; letter-spacing: -0.01em; }
+.cov-head .big-d { font-size: 1.12rem; color: var(--ink-soft); }
+.cov-head .sub-n { font-size: 1.12rem; color: var(--ink-soft); line-height: 2; padding-bottom: 6px; }
+.cov-head .sub-n b { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 700; color: var(--ink); font-size: 1.15rem; margin-right: 4px; }
+
+.palette { border-top: 1px solid var(--line-soft); }
+.palette-toggle {
+  font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300; font-size: 1.06rem; color: var(--ink-soft);
+  cursor: pointer; padding: 12px 0; list-style: none; display: flex; align-items: center; gap: 10px;
+}
+.palette-toggle::-webkit-details-marker { display: none; }
+.palette-toggle::after {                        
+  content: ""; width: 0; height: 0; border: 5px solid transparent; border-top-color: currentColor;
+  transform: translateY(3px); transition: transform 0.2s ease;
+}
+.palette[open] .palette-toggle { color: var(--ink); border-bottom: 1px solid var(--line-soft); margin-bottom: 18px; }
+.palette[open] .palette-toggle::after { transform: rotate(180deg) translateY(3px); }
+.glyphrow { margin-bottom: 18px; }
+.glyphrow .lbl { font-size: 1.02rem; color: var(--ink-soft); padding: 2px 0; }
+.glyphrow .row { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300; font-size: 1.55rem; line-height: 2; }
+.glyphrow .row span { display: inline-block; padding: 0 5px; cursor: pointer; }
+.glyphrow .row span:hover { background: var(--ink); color: var(--bg); }
+.copy-toast {
+  position: fixed; bottom: 26px; left: 50%; transform: translateX(-50%);
+  background: var(--ink); color: var(--bg); font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300;
+  padding: 9px 20px; font-size: 1.05rem; display: none; z-index: 80;
+}
+
+.form-item h4 { font-family: "Kkakdugi Drafting", sans-serif; font-size: 1.22rem; font-weight: 700; margin-bottom: 6px; }
+.form-item h4 .n { font-weight: 200; color: var(--ink-soft); margin-right: 9px; }
+
+.form-item p { font-size: 1.1rem; color: var(--ink-soft); line-height: 1.7; max-width: 62em; }
+.form-items { border-top: 1px solid var(--line); }
+.form-item { display: grid; grid-template-columns: 200px 1fr; gap: 44px; align-items: center; padding: 26px 0; }
+.form-item + .form-item { border-top: 1px solid var(--line-soft); }
+.form-item .glyph { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300; font-size: 3.3rem; line-height: 1.2; letter-spacing: 0.05em; }
+.form-item-wide { grid-template-columns: 1fr; }
+
+.width-demo { margin-top: 20px; display: grid; grid-template-columns: auto auto;
+  gap: 24px 46px; align-items: start; justify-items: start; }
+.wgrid {
+  width: max-content;                 
+  font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300; font-size: clamp(22px, 4vw, 54px);
+  line-height: 1.55; letter-spacing: 0; white-space: nowrap; max-width: 100%; overflow-x: auto;
+  
+  background-image: repeating-linear-gradient(90deg,
+    color-mix(in srgb, var(--line) 52%, transparent) 0 1px, transparent 1px var(--adv, 0.40em));
+  
+  box-shadow: inset -1px 0 0 color-mix(in srgb, var(--line) 52%, transparent);
+}
+@media (max-width: 700px) { .width-demo { grid-template-columns: 1fr; } }
+
+.punct {
+  font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300;
+  font-size: clamp(22px, 4vw, 54px); line-height: 1.55; white-space: nowrap;
+  display: flex; width: max-content;
+  box-shadow: inset -1px 0 0 color-mix(in srgb, var(--line) 52%, transparent);
+}
+.punct span { display: inline-block; box-shadow: inset 1px 0 0 color-mix(in srgb, var(--line) 52%, transparent); }
+.width-demo .cap { font-size: 0.95rem; color: var(--ink-soft); margin-top: 6px; line-height: 1.55;
+  font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300; }
+.width-demo .cap b { color: var(--ink); font-weight: 700; }
+
+.verify-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 20px; border: 1px solid var(--line); }
+.verify-steps > div { padding: 20px 22px; }
+.verify-steps > div + div { border-left: 1px solid var(--line-soft); }
+.verify-steps .n { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 200; font-size: 0.92rem; color: var(--ink-soft); letter-spacing: 0.08em; }
+.verify-steps b { display: block; font-family: "Kkakdugi Drafting", sans-serif; font-size: 1.1rem; margin: 6px 0 8px; }
+.verify-steps p { font-size: 1.02rem; color: var(--ink-soft); line-height: 1.65; max-width: none; }
+.verify-steps .s { display: block; font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300; font-size: 1.9rem; letter-spacing: 0.06em; color: var(--ink); margin-top: 10px; }
+@media (max-width: 900px) { .verify-steps { grid-template-columns: 1fr; } .verify-steps > div + div { border-left: 0; border-top: 1px solid var(--line-soft); } }
+#compare-sec { margin-top: 30px; }
+#compare-sec, #align-sec { margin-top: 0; }
+
+.cmp-stack { position: relative; border: 1px solid var(--line); background: var(--surface); }
+.cmp-stack .stack-row { display: flex; align-items: stretch; gap: 22px; padding: 14px 30px 16px; }
+.cmp-stack .stack-row + .stack-row { border-top: 1px solid var(--line-soft); }
+.stack-body { position: relative; width: max-content; max-width: 100%; }
+.stack-text { white-space: pre; font-size: clamp(14px, 2.0vw, 25px); line-height: 1.6; }   
+.stack-kk { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300; }
+
+.stack-brk {
+  align-self: stretch; display: flex; align-items: center;
+  border-left: 1.5px solid var(--ink-soft); padding-left: 16px; margin: 4px 0;
+  font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300; font-size: 1.05rem;
+  color: var(--ink-soft); white-space: nowrap; letter-spacing: 0.04em;
+}
+.stack-guides { position: absolute; inset: 0; pointer-events: none; }
+.stack-guides .guide { position: absolute; top: 0; bottom: 0; width: 1px;
+  background: color-mix(in srgb, var(--ink-soft) 62%, transparent);
+  transition: opacity 0.5s ease; }
+
+.stack-guides .guide-grid { width: auto; left: 0; right: 0;
+  --grid-strong: color-mix(in srgb, var(--ink-soft) 58%, transparent);
+  --grid-faint: color-mix(in srgb, var(--ink-soft) 22%, transparent); }
+
+.cmp-stack.guides-off .guide { opacity: 0; transition: none; }
+.cmp-stack.guides-blink .guide { animation: guideBlink 1.6s ease-in-out 1 both; }
+@keyframes guideBlink {
+  0% { opacity: 0; } 15% { opacity: 1; } 30% { opacity: 0.15; }
+  45% { opacity: 1; } 60% { opacity: 0.15; } 75% { opacity: 1; } 88% { opacity: 0.35; } 100% { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) { .cmp-stack.guides-blink .guide { animation: none; } }
+.guide-toggle {
+  position: absolute; right: 12px; top: 10px; display: inline-flex; align-items: center; gap: 8px;
+  font-family: "Kkakdugi Drafting", sans-serif; font-size: 0.86rem; letter-spacing: 0.05em;
+  color: var(--ink-soft); background: transparent; border: 1px solid var(--line-soft);
+  padding: 4px 10px 4px 6px; cursor: pointer;
+}
+
+.guide-cue { position: absolute; right: 108px; top: 12px; font-size: 0.9rem; }
+.guide-toggle .sw { width: 22px; height: 12px; border: 1px solid var(--line); position: relative; }
+.guide-toggle .sw::after { content: ""; position: absolute; top: 1px; left: 1px; width: 8px; height: 8px; background: var(--ink-soft); transition: left 0.2s ease, background-color 0.2s ease; }
+.guide-toggle.on { color: var(--ink); border-color: var(--line); }
+.guide-toggle.on .sw::after { left: 11px; background: var(--accent); }
+@media (max-width: 700px) { .stack-brk { display: none; } }
+
+.pair-cap { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 700; font-size: 1.08rem; letter-spacing: 0.05em; margin: 34px 0 12px; }
+
+.note-block { border: 1px solid var(--line); background: var(--surface); padding: 24px 30px 26px; margin-bottom: 36px; }
+.note-title { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 700; font-size: 0.95rem; letter-spacing: 0.12em; color: var(--ink-soft); border-bottom: 1px solid var(--line-soft); padding-bottom: 8px; margin-bottom: 16px; }
+.note-list { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300; font-size: 1.28rem; line-height: 2.15; }
+.form-fold { margin-top: 34px; }
+
+footer { background: #1c2430; color: #cfd6e0; margin-top: 84px; }
+footer .inner { max-width: 1080px; margin: 0 auto; padding: 56px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+footer h3 { font-family: "Kkakdugi Drafting", sans-serif; color: #fff; margin-bottom: 12px; font-size: 1.1rem; }
+footer p, footer li { font-size: 1.06rem; line-height: 1.85; }
+footer ul { list-style: none; }
+footer a { color: #9cc4ee; }
+
+.byline { flex: none; align-self: end; font-family: "Kkakdugi Drafting", sans-serif; font-weight: 700; font-size: 1.1rem; letter-spacing: 0.08em; opacity: .78; }
+.foot-byline { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 700; font-size: 0.95rem; margin-top: 12px; opacity: .78; }
+.foot-seal { display: inline-grid; place-items: center; border: 2px solid var(--seal); color: var(--seal); width: 52px; height: 52px; font-family: "Kkakdugi Drafting", sans-serif; font-weight: 700; writing-mode: vertical-rl; font-size: 0.95rem; margin-top: 12px; }
+
+@media (max-width: 860px) {
+  .theme-switch { top: 10px; right: 10px; }
+  .sheet-body { grid-template-columns: 1fr; }
+  .sheet-canvas { border-right: 0; border-bottom: 1px solid var(--line-soft); }
+  .doc-wrap { grid-template-columns: 1fr; }
+  .doc-aside { padding-top: 0; }
+  .docpage { padding: 36px 26px; }
+  .pairgrid { grid-template-columns: 1fr; }
+  .pairgrid .half + .half { border-left: 0; border-top: 1px solid var(--line); }
+  .cov-head { grid-template-columns: 1fr; gap: 12px; }
+  .form-item { grid-template-columns: 1fr; gap: 10px; }
+  footer .inner { grid-template-columns: 1fr; }
+}
+
+.clr-wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 18px; margin-top: 14px; }
+.clr-panel { margin: 0; border: 1px solid var(--line); background: var(--surface); padding: 8px 8px 4px; }
+.clr-tag { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300; font-size: .95rem; color: var(--ink-soft); }
+.clr-svg { display: block; width: 100%; max-width: 260px; margin: 0 auto; color: var(--ink); }   
+.clr-svg .clr-rot { transform-box: view-box; transform-origin: 210px 210px; transition: transform .45s ease; }
+.clr-svg line, .clr-svg path { stroke: currentColor; stroke-width: 2.2; fill: none; }
+.clr-svg .ah { fill: currentColor; stroke: none; }
+.clr-svg text { fill: currentColor; font-size: 46px; dominant-baseline: central; text-anchor: middle; }
+.clr-kk text { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300; }
+.clr-sys text { font-family: var(--clr-sys, "Malgun Gothic", "Apple SD Gothic Neo", sans-serif); }
+.clr-rotbtn span { opacity: .7; margin-left: 4px; }
+
+h2 u { text-decoration-thickness: 2px; text-underline-offset: .2em; }
+
+.mathshow { margin: 48px 0 56px; }
+.mathshow .math-wrap { overflow-x: auto; }
+.math-cmp { width: 100%; border-collapse: collapse; }
+.math-cmp th, .math-cmp td { border-bottom: 1px solid var(--line, rgba(127,127,127,.3)); padding: 10px 8px; vertical-align: middle; }
+.math-cmp thead th { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300; font-size: .95rem; color: var(--ink-soft); text-align: center; }
+.math-cmp tbody th { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300; color: var(--ink-soft); text-align: left; white-space: nowrap; width: 6.5em; font-size: .95rem; }
+.math-cmp tr.mg th { color: var(--accent); font-weight: 700; padding-top: 22px; }
+.math-cmp td math { font-size: 26px; color: var(--ink); }
+
+.math-cmp math, .math-cmp math * { margin: revert; padding: revert; }
+.math-cmp .m-sysname { display: block; font-size: .8rem; opacity: .75; margin-top: 2px; }
+.math-cmp .m-sys math { font-family: math; }
+.math-cmp .m-kk math { font-family: "Kkakdugi Drafting", math; font-weight: 300; }
+</style>
+</head>
+<body>
+
+<div class="grain g-photo" aria-hidden="true"></div>
+<div class="grain g-paper" aria-hidden="true"></div>
+
+<span id="revProbe" aria-hidden="true" style="position:fixed;left:-9999px;color:var(--rev)"></span>
+
+<div class="hero">
+  <div class="hero-c">
+    <div class="hero-c-left">
+      <h1 data-copy="hero.title">깍두기 도면체</h1>
+      <div class="sub" data-copy="hero.sub"><strong>Kkakdugi Drafting</strong></div>
+      <p data-copy="hero.tagline" class="tagline">설계자의 감각으로<br>
+설계자에 의해 만들어진<br>
+설계자를 위한 글꼴</p>
+      <div class="hero-cta">
+        <a class="btn primary" href="https://github.com/dynamic-potato/kkakdugi-drafting" target="_blank" rel="noopener" data-copy="hero.cta1">TTF 다운로드</a>
+        <a class="btn" href="#tester-sec" data-copy="hero.cta2">직접 입력해보기</a>
+      </div>
+      <div class="hero-c-foot">
+        <div class="hero-c-meta" data-copy="hero.meta">한글 11,172자 전량 지원 도면용 글씨<br>
+OFL 1.1<br>
+오른쪽은 이 글꼴을 사용한 도면 예시입니다</div>
+        <div class="byline">역동감자</div>
+      </div>
+    </div>
+    <div class="hero-c-right">
+      <div class="hero-dwg" id="heroDwg"></div>
+    </div>
+  </div>
+</div>
+
+<div class="switch-dock">
+<div class="dock-row">
+<div class="theme-cue" id="themeCue" aria-hidden="true"><span class="cue-txt" data-copy="theme.cue">테마를 바꾸며 확인해 보세요</span><span class="cue-arrow"></span></div>
+<div class="theme-switch" role="group" aria-label="배경 테마">
+  <button data-set-theme="blueprint">청사진<small class="era">70년대</small></button>
+  <button data-set-theme="plotter">플로터<small class="era">90년대</small></button>
+  <button data-set-theme="cad">CAD<small class="era">현재</small></button>
+</div>
+</div>
+</div>
+
+<section class="story-sec">
+  <p class="story-big" data-copy="story.big">15년간 도면을 그리며, 늘 아쉬웠던 한 가지.<br>
+도면 속 <strong>한글</strong>이었습니다.<br>
+<strong>도면을 위한 한글 글꼴, 깍두기 도면체</strong>입니다.</p>
+  <p class="story-fn" data-copy="story.footnote">※ 이 페이지의 모든 글자는 깍두기 도면체로 작성되었습니다.</p>
+  <details class="palette story-fold">
+    <summary class="palette-toggle" data-copy="story.more">제작 노트 전문 읽기</summary>
+    <div class="story-full">
+      <h4 data-copy="story.title">뭔가 아쉬웠던 기존의 도면 글씨체</h4>
+      <p data-copy="story.body1">지금까지 약 15년간 여러 CAD 프로그램을 다루며 느낀 아쉬웠던 점이 있었습니다.<br>
+그건 바로 도면에서 사용하는 한글 폰트였습니다.<br>
+숫자와 라틴 문자에는 제도 문법에 알맞은 서체가 있는데, 한글은 뭔가 조금씩 아쉬웠습니다.<br>
+그래서 설계자이자 메이커 정신으로 직접 만들기로 했습니다.<br>
+골라 쓸 수 없다면 만들면 되죠!</p>
+      <h4 data-copy="story.title2">깍두기 도면체의 설계 컨셉</h4>
+      <p data-copy="story.body2">글꼴의 전체적인 느낌은 펜 플로터와 청사진이 공존하던 70~90년대로 잡았습니다.<br>
+플로터의 펜이 종이를 누르며 그린 선에서 획 기반 글씨체의 영감을 얻었고.<br>
+호를 직선으로 근사하던 시절의 시각적 문법을 따오고.<br>
+깍두기 공책에서 영감을 받은 네모꼴로 한땀 한땀 그리고.<br>
+어느 방향에서, 그리고 누가 보아도 헷갈리지 않는 명확한 구분감을 구현하고.<br>
+마지막으로 모니터에서의 모습과 인쇄했을 때까지도 어울리도록 이 글씨체를 프로그래밍했습니다.<br>
+도면을 위한 아주 가는 글꼴부터 표제와 강조를 위한 굵은 글꼴까지 준비했고<br>
+한글뿐만 아니라 도면/수학 문자, 라틴계열 문자, 키릴계열 문자, 가나까지 준비했으니 마음껏 사용해주세요!</p>
+    </div>
+  </details>
+</section>
+
+<section id="solve-sec">
+  
+  <div class="sub">
+  <h3 class="sub-h"><span data-copy="drawing.heading">도면을 위한 깍두기 도면체</span></h3>
+  <p data-copy="drawing.note" class="scene-note">깍두기 도면체의 주 무대인 도면에서의 모습을 테마별로 확인해보세요.</p>
+
+  <div class="dwg-hint-top">
+    <div data-copy="drawing.hint" class="dwg-hint">도면 위에 마우스를 올리면 확대경이 따라옵니다</div>
+  </div>
+  <div class="sheet">
+    <div class="sheet-body">
+      <div class="sheet-canvas">
+        <div class="dwg-view" id="dwgView">
+          <div class="dwg-content" id="dwgContent">
+            <div class="dwg-svg" id="dwgSvg"></div>
+            
+            <div class="dwg-svg dwg-prev" id="dwgPrev" aria-hidden="true"></div>
+          </div>
+          <div class="lens" id="lens"><div class="lens-glass"><div class="lens-inner" id="lensInner"></div></div></div>
+          <div class="ch-x" id="chX"></div><div class="ch-y" id="chY"></div>
+          <img class="lens-frame brass" src="img/lens_brass.png" alt="">
+          <img class="lens-frame housing" src="img/lens_housing.png" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="mathshow">
+  <h3 class="sub-h"><span data-copy="math.heading">수식/화학/전기에도 어울리는 깍두기 도면체</span></h3>
+  <p data-copy="math.note" class="scene-note">도면에서 사용될 수 있는 수식, 화학식, 전기적 특성을 기입할 수 있도록 준비했습니다.<br>
+※ 수식 조판(OpenType MATH), 수학용 이탤릭체, 수학용 윗/아래 첨자, 전기 기호 등</p>
+  <div class="math-wrap"><table class="math-cmp">
+    <thead><tr><th></th><th>깍두기 도면체</th><th>이 기기의 기본 수식 글꼴</th></tr></thead>
+    <tbody>
+    <tr class="mg"><th colspan="3">수식</th></tr>
+    <tr><th>극한</th><td class="m-kk"><math display="block"><munder><mo movablelimits="false">lim</mo><mrow><mi>n</mi><mo>→</mo><mi mathvariant="normal">∞</mi></mrow></munder><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>x</mi><mi>i</mi></msub><mo>=</mo><mi>n</mi><mover><mi>x</mi><mo>¯</mo></mover></math></td><td class="m-sys"><math display="block"><munder><mo movablelimits="false">lim</mo><mrow><mi>n</mi><mo>→</mo><mi mathvariant="normal">∞</mi></mrow></munder><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>x</mi><mi>i</mi></msub><mo>=</mo><mi>n</mi><mover><mi>x</mi><mo>¯</mo></mover></math></td></tr>
+    <tr><th>적분</th><td class="m-kk"><math display="block"><msubsup><mo>∫</mo><mn>0</mn><mi>L</mi></msubsup><mi>E</mi><mi>I</mi><mfrac><mrow><msup><mi>d</mi><mn>2</mn></msup><mi>w</mi></mrow><mrow><mi>d</mi><msup><mi>x</mi><mn>2</mn></msup></mrow></mfrac><mi>d</mi><mi>x</mi></math></td><td class="m-sys"><math display="block"><msubsup><mo>∫</mo><mn>0</mn><mi>L</mi></msubsup><mi>E</mi><mi>I</mi><mfrac><mrow><msup><mi>d</mi><mn>2</mn></msup><mi>w</mi></mrow><mrow><mi>d</mi><msup><mi>x</mi><mn>2</mn></msup></mrow></mfrac><mi>d</mi><mi>x</mi></math></td></tr>
+    <tr><th>행렬</th><td class="m-kk"><math display="block"><mrow><mo>[</mo><mtable><mtr><mtd><msub><mi>k</mi><mn>11</mn></msub></mtd><mtd><msub><mi>k</mi><mn>12</mn></msub></mtd></mtr><mtr><mtd><msub><mi>k</mi><mn>21</mn></msub></mtd><mtd><msub><mi>k</mi><mn>22</mn></msub></mtd></mtr></mtable><mo>]</mo></mrow><mrow><mo>{</mo><mtable><mtr><mtd><msub><mover><mi>u</mi><mo>→</mo></mover><mn>1</mn></msub></mtd></mtr><mtr><mtd><msub><mover><mi>u</mi><mo>→</mo></mover><mn>2</mn></msub></mtd></mtr></mtable><mo>}</mo></mrow><mo>=</mo><mrow><mo>{</mo><mtable><mtr><mtd><msub><mover><mi>F</mi><mo>→</mo></mover><mn>1</mn></msub></mtd></mtr><mtr><mtd><msub><mover><mi>F</mi><mo>→</mo></mover><mn>2</mn></msub></mtd></mtr></mtable><mo>}</mo></mrow></math></td><td class="m-sys"><math display="block"><mrow><mo>[</mo><mtable><mtr><mtd><msub><mi>k</mi><mn>11</mn></msub></mtd><mtd><msub><mi>k</mi><mn>12</mn></msub></mtd></mtr><mtr><mtd><msub><mi>k</mi><mn>21</mn></msub></mtd><mtd><msub><mi>k</mi><mn>22</mn></msub></mtd></mtr></mtable><mo>]</mo></mrow><mrow><mo>{</mo><mtable><mtr><mtd><msub><mover><mi>u</mi><mo>→</mo></mover><mn>1</mn></msub></mtd></mtr><mtr><mtd><msub><mover><mi>u</mi><mo>→</mo></mover><mn>2</mn></msub></mtd></mtr></mtable><mo>}</mo></mrow><mo>=</mo><mrow><mo>{</mo><mtable><mtr><mtd><msub><mover><mi>F</mi><mo>→</mo></mover><mn>1</mn></msub></mtd></mtr><mtr><mtd><msub><mover><mi>F</mi><mo>→</mo></mover><mn>2</mn></msub></mtd></mtr></mtable><mo>}</mo></mrow></math></td></tr>
+    <tr><th>근호 중첩</th><td class="m-kk"><math display="block"><msqrt><mn>1</mn><mo>+</mo><msqrt><mn>1</mn><mo>+</mo><msqrt><mn>1</mn><mo>+</mo><mi>x</mi></msqrt></msqrt></msqrt><mo>≠</mo><mroot><mi>y</mi><mn>3</mn></mroot></math></td><td class="m-sys"><math display="block"><msqrt><mn>1</mn><mo>+</mo><msqrt><mn>1</mn><mo>+</mo><msqrt><mn>1</mn><mo>+</mo><mi>x</mi></msqrt></msqrt></msqrt><mo>≠</mo><mroot><mi>y</mi><mn>3</mn></mroot></math></td></tr>
+    <tr class="mg"><th colspan="3">화학</th></tr>
+    <tr><th>평형</th><td class="m-kk"><math display="block"><msub><mi mathvariant="normal">N</mi><mn>2</mn></msub><mo>+</mo><mn>3</mn><msub><mi mathvariant="normal">H</mi><mn>2</mn></msub><mo>⇌</mo><mn>2</mn><mi mathvariant="normal">N</mi><msub><mi mathvariant="normal">H</mi><mn>3</mn></msub><mspace width="1em"/><mi>Δ</mi><mi>H</mi><mo>=</mo><mo>−</mo><mn>92</mn><mtext> kJ</mtext></math></td><td class="m-sys"><math display="block"><msub><mi mathvariant="normal">N</mi><mn>2</mn></msub><mo>+</mo><mn>3</mn><msub><mi mathvariant="normal">H</mi><mn>2</mn></msub><mo>⇌</mo><mn>2</mn><mi mathvariant="normal">N</mi><msub><mi mathvariant="normal">H</mi><mn>3</mn></msub><mspace width="1em"/><mi>Δ</mi><mi>H</mi><mo>=</mo><mo>−</mo><mn>92</mn><mtext> kJ</mtext></math></td></tr>
+    <tr><th>동위원소</th><td class="m-kk"><math display="block"><mmultiscripts><mi mathvariant="normal">U</mi><mprescripts/><mn>92</mn><mn>235</mn></mmultiscripts><mo>+</mo><mmultiscripts><mi mathvariant="normal">n</mi><mprescripts/><mn>0</mn><mn>1</mn></mmultiscripts><mo>→</mo><mmultiscripts><mi mathvariant="normal">Ba</mi><mprescripts/><mn>56</mn><mn>141</mn></mmultiscripts><mo>+</mo><mmultiscripts><mi mathvariant="normal">Kr</mi><mprescripts/><mn>36</mn><mn>92</mn></mmultiscripts><mo>+</mo><mn>3</mn><mmultiscripts><mi mathvariant="normal">n</mi><mprescripts/><mn>0</mn><mn>1</mn></mmultiscripts></math></td><td class="m-sys"><math display="block"><mmultiscripts><mi mathvariant="normal">U</mi><mprescripts/><mn>92</mn><mn>235</mn></mmultiscripts><mo>+</mo><mmultiscripts><mi mathvariant="normal">n</mi><mprescripts/><mn>0</mn><mn>1</mn></mmultiscripts><mo>→</mo><mmultiscripts><mi mathvariant="normal">Ba</mi><mprescripts/><mn>56</mn><mn>141</mn></mmultiscripts><mo>+</mo><mmultiscripts><mi mathvariant="normal">Kr</mi><mprescripts/><mn>36</mn><mn>92</mn></mmultiscripts><mo>+</mo><mn>3</mn><mmultiscripts><mi mathvariant="normal">n</mi><mprescripts/><mn>0</mn><mn>1</mn></mmultiscripts></math></td></tr>
+    <tr class="mg"><th colspan="3">전기</th></tr>
+    <tr><th>전기 기호</th><td class="m-kk"><math display="block"><msub><mi>V</mi><mi>DC</mi></msub><mo>=</mo><mn>24</mn><mtext> V ⎓</mtext><mspace width="1em"/><mtext>⏚ ∿ ⏻</mtext></math></td><td class="m-sys"><math display="block"><msub><mi>V</mi><mi>DC</mi></msub><mo>=</mo><mn>24</mn><mtext> V ⎓</mtext><mspace width="1em"/><mtext>⏚ ∿ ⏻</mtext></math></td></tr>
+    </tbody>
+  </table></div>
+  </div>
+
+  <div class="sub" id="tester-sec">
+  <h3 class="sub-h"><span data-copy="tester.heading">↓↓↓ 직접 입력해보세요 ↓↓↓</span></h3>
+  <div class="tester-controls">
+    <span id="weights">
+      <button data-w="200">ExtraLight</button>
+      <button data-w="300" class="on">Light</button>
+      <button data-w="400">Regular</button>
+      <button data-w="700">Bold</button>
+    </span>
+    <label>크기 <input type="range" id="size" min="14" max="110" value="46"> <span id="sizeval">44px</span></label>
+  </div>
+  <div id="tester" contenteditable="true" spellcheck="false">다람쥐 헌 쳇바퀴에 타고파
+⌀45 H7, 2×C0.5, Ra 3.2, ±0.05
+0123456789 ABCDEFG abcdefg</div>
+  <div data-copy="tester.hint" class="tester-hint">아무 글이나 입력하며 테스트 해 보세요.</div>
+  </div>
+
+</section>
+
+<section>
+  
+  <div id="compare-sec">
+    <h2 data-copy="compare.heading">깍두기 도면체의 문자 <u>구분성</u> 확인하기</h2>
+    <p class="scene-note" data-copy="compare.note">슬라이더를 좌우로 끌어보세요. 같은 자리에서 여러 글꼴과 깍두기 도면체를 비교하실 수 있습니다.</p>
+    <div class="cmp" id="cmp">
+      <div class="cmp-layer cmp-a" id="cmpA">0O o ㅇ</div>
+      <div class="cmp-layer cmp-b" id="cmpB">0O o ㅇ</div>
+      <div class="cmp-div" id="cmpDiv"><span class="cmp-cue" id="cmpCue" aria-hidden="true"></span></div>
+      <span class="cmp-tag l">시스템 글꼴</span><span class="cmp-tag r" data-copy="compare.tagright">깍두기 도면체</span>
+    </div>
+    <div class="cmp-sets" id="cmpSets">
+      <button class="on" data-t="iIllIIIlliIIIlIIli">막대</button>
+      <button data-t="1lI1Il1ㅣl1I|1lI1">숫자 1</button>
+      <button data-t="0OoㅇФ@⌀0Oㅇ⌀Ф@0Oo">동그라미</button>
+      <button data-t="대리 머리띠 멍댕이 광명">단어</button>
+      <button data-t="⌀8.4±0.1 ⌀60H7 M8×1.25">도면 치수</button>
+    </div>
+  </div>
+
+</section>
+
+<section>
+  
+  <div id="align-sec">
+    <h2 data-copy="align.heading">깍두기 도면체의 <u>정렬성</u> 확인하기</h2>
+    <p class="scene-note" data-copy="align.note">여러 줄의 주기(Note)를 적어 보면 차이가 분명합니다.<br>
+숫자/라틴/키릴은 정확히 격자 한 칸(반각), 한글/가나는 두 칸(전각)으로<br>
+깍두기 도면체는 모든 글자가 이 격자에 딱 떨어집니다.</p>
+    <div class="cmp-stack" id="cmp2">
+      <div class="stack-row">
+        <div class="stack-body">
+          <div class="stack-text stack-kk" id="cmp2B" data-copy="align.sample">- XXXX 평가 시 아래 사항 따를 것
+  - KS-AA-01 1.2.0의 표준 평가 조건
+  - KS-BB-02 2.3.1의 극저온 환경 가진 조건
+  - MIL-STD-DDD 7.9.5 DROP TEST</div>
+          <div class="stack-guides" id="cmp2GB" aria-hidden="true"></div>
+        </div>
+        <div class="stack-brk" data-copy="compare.tagright">깍두기 도면체</div>
+      </div>
+      <div class="stack-row">
+        <div class="stack-body">
+          <div class="stack-text" id="cmp2A" data-copy="align.sample">- XXXX 평가 시 아래 사항 따를 것
+  - KS-AA-01 1.2.0의 표준 평가 조건
+  - KS-BB-02 2.3.1의 극저온 환경 가진 조건
+  - MIL-STD-DDD 7.9.5 DROP TEST</div>
+          <div class="stack-guides" id="cmp2GA" aria-hidden="true"></div>
+        </div>
+        <div class="stack-brk cap-sysfont">시스템 글꼴</div>
+      </div>
+      <div class="theme-cue guide-cue" id="guideCue" aria-hidden="true"><span class="cue-txt" data-copy="align.cue">눌러보세요</span><span class="cue-arrow"></span></div>
+      <button type="button" class="guide-toggle on" id="guideToggle" aria-pressed="true">
+        <span class="sw" aria-hidden="true"></span><span data-copy="align.toggle">격자</span>
+      </button>
+    </div>
+    <div class="switch-row"><span class="switch-lbl" data-copy="align.langlbl">언어</span><div class="cmp-sets" id="cmp2Langs"></div></div>
+  </div>
+
+</section>
+
+<section>
+  <div id="clarity-sec">
+    <h2 data-copy="clarity.heading">깍두기 도면체의 <u>명확성</u> 확인하기</h2>
+    <p class="scene-note" data-copy="clarity.note">실물 도면은 다양한 각도로 돌려서 보는 경우가 흔합니다.<br>
+이때, 6과 9는 방향에 따라 쉽게 헷갈릴 수 있는 글자죠.<br>
+깍두기 도면체는 6과 9 아래에 짧은 밑줄을 두어 어느 방향에서 보아도 어떤 것이 "육"이고 "구"인지 바로 구분할 수 있습니다.<br>
+회전 버튼으로 90°씩 돌려 보세요.</p>
+    <div class="clr-wrap">
+      <figure class="clr-panel"><figcaption class="clr-tag" data-copy="compare.tagright">깍두기 도면체</figcaption><svg class="clr-svg clr-kk" viewBox="55 55 310 310" aria-hidden="true"><g class="clr-rot"></g></svg></figure>
+      <figure class="clr-panel"><figcaption class="clr-tag clr-sysname">시스템 글꼴</figcaption><svg class="clr-svg clr-sys" viewBox="55 55 310 310" aria-hidden="true"><g class="clr-rot"></g></svg></figure>
+    </div>
+    <div class="cmp-sets" id="clrSets">
+      <button class="on" data-v="dim">치수</button><button data-v="pn">부품 번호</button>
+      <button id="clrRot" class="clr-rotbtn">회전 ↻ <span id="clrDeg">0°</span></button>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 data-copy="coverage.heading">커버리지</h2>
+  <div class="cov-head">
+    <div>
+      <div class="big-n" data-copy="coverage.count">12,421</div>
+      <div class="big-d" data-copy="coverage.countdesc">한글 완성형 11,172자 전량 + 라틴/그리스/키릴/가나/도면/수학/전기기호 1,249자</div>
+    </div>
+  </div>
+  <p data-copy="coverage.note" class="scene-note">아래는 호환 문자 팔레트입니다.<br>
+사용자께서 도면 작성간 사용하실 법한 문자를 최대한 담았습니다.<br>
+글자를 클릭하면 자동으로 클립보드로 복사되며,<br>
+키보드로 치기 어려운 기호를 여기서 복사하여 CAD나 워드프로세서에 붙여넣으시면 됩니다.</p>
+
+  <details class="palette">
+    <summary class="palette-toggle">호환 문자 팔레트 펼치기</summary>
+    <div class="glyphrow"><div class="lbl">한글 완성형 : 11,172자</div><div class="row">가 각 값 갔 곡 곽 궤 났 닭 됐 명 밝 봤 빛 샘 숲 얹 웤 즉 춤 튈 힣</div></div>
+    <div class="glyphrow"><div class="lbl">한글 호환 자모 : 51자</div><div class="row">ㄱ ㄲ ㄳ ㄴ ㄵ ㄶ ㄷ ㄸ ㄹ ㄺ ㄻ ㄼ ㄽ ㄾ ㄿ ㅀ ㅁ ㅂ ㅃ ㅄ ㅅ ㅆ ㅇ ㅈ ㅉ ㅊ ㅋ ㅌ ㅍ ㅎ ㅏ ㅐ ㅑ ㅒ ㅓ ㅔ ㅕ ㅖ ㅗ ㅘ ㅙ ㅚ ㅛ ㅜ ㅝ ㅞ ㅟ ㅠ ㅡ ㅢ ㅣ</div></div>
+    <div class="glyphrow"><div class="lbl">숫자/라틴 알파벳 : 62자</div><div class="row">0 1 2 3 4 5 6 7 8 9 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z</div></div>
+    <div class="glyphrow"><div class="lbl">문장부호/괄호 : 44자</div><div class="row">! ? . , : ; &#x27; &quot; ‘ ’ ‚ “ ” „ ( ) [ ] { } / \ | ‖ - – — _ … • · † ‡ ※ # &amp; @ * ` ^ ¡ ¿ § ¶</div></div>
+    <div class="glyphrow"><div class="lbl">수학/연산자 : 141자</div><div class="row">+ − × ÷ = ≠ ≒ ≈ &lt; &gt; ≤ ≥ ≪ ≫ ∞ ∝ √ ~ ∂ ∇ ∑ ∏ ∫ ∴ ∵ ∈ ∉ ∋ ⊂ ⊃ ⊆ ⊇ ∪ ∩ ∧ ∨ ∀ ∃ ¬ ￢ ⁺ ⁻ ⁼ ⁽ ⁾ ₊ ₋ ₌ ₍ ₎ ⋅ ∙ ∘ ∗ ∕ ∆ ∛ ∜ ‴ ⋯ ⋮ ∬ ∭ ∮ ∯ ∰ ≃ ≅ ≦ ≧ ≮ ≯ ≰ ≱ ≲ ≳ ≐ ≜ ≝ ≔ ∼ ∣ ∤ ∦ ⇒ ⇐ ⇔ ⇑ ⇓ ↦ ⟶ ⟵ ⟷ ⟹ ⟸ ⟺ ⟼ ⇌ ⇋ ⇄ ⇆ ⇀ ↼ ↺ ↻ ⟨ ⟩ ⌈ ⌉ ⌊ ⌋ ⊕ ⊖ ⊗ ⊘ ⊙ ⊻ ⊼ ⊽ ∟ ∡ ∢ ⊾ ⊿ ℝ ℂ ϕ ϵ Å Ŝ S̃ S̄ S̅ Ṡ S̈ S̊ S⃗ S⃖ S⃡ S̸ S⃒</div></div>
+    <div class="glyphrow"><div class="lbl">치수/공차 : 11자</div><div class="row">Ø ⌀ ∅ ° ± ∓ ′ ″ ≡ ≢ ℄</div></div>
+    <div class="glyphrow"><div class="lbl">기하공차 GD&amp;T(특성 기호) : 16자(형상/자세/위치/흔들림)</div><div class="row">⏤ ⏥ ○ ◯ ⌭ ⌒ ⌓ ∠ ⊥ ∥ ⌖ ◎ ⊚ ⌯ ↗ ⌰</div></div>
+    <div class="glyphrow"><div class="lbl">기하공차 GD&amp;T(재료 조건/보조 기호) : 16자</div><div class="row">Ⓜ Ⓛ Ⓢ Ⓟ Ⓔ Ⓕ Ⓣ Ⓤ ℗ ⌴ ⌵ ↧ ⌱ ⌲ ⌳ ⌮</div></div>
+    <div class="glyphrow"><div class="lbl">도형/표식 : 29자</div><div class="row">□ ■ △ ▲ ▽ ▼ ▷ ▶ ◁ ◀ ◇ ◆ ○ ● ◐ ◑ ◎ ☆ ★ ♡ ♥ ♢ ♦ ♧ ♣ ♤ ♠ ✓ ✗</div></div>
+    <div class="glyphrow"><div class="lbl">화살표/손가락 : 13자</div><div class="row">← ↑ → ↓ ↔ ↕ ↖ ↗ ↘ ↙ ↧ ☜ ☞</div></div>
+    <div class="glyphrow"><div class="lbl">주기 번호/위아래 첨자 : 82자</div><div class="row">① ② ③ ④ ⑤ ⑥ ⑦ ⑧ ⑨ ⑩ ⑪ ⑫ ⑬ ⑭ ⑮ ⑯ ⑰ ⑱ ⑲ ⑳ ⁰ ¹ ² ³ ⁴ ⁵ ⁶ ⁷ ⁸ ⁹ ᵃ ᵇ ᶜ ᵈ ᵉ ᶠ ᵍ ʰ ⁱ ʲ ᵏ ˡ ᵐ ⁿ ᵒ ᵖ ʳ ˢ ᵗ ᵘ ᵛ ʷ ˣ ʸ ᶻ ₀ ₁ ₂ ₃ ₄ ₅ ₆ ₇ ₈ ₉ ₐ ₑ ₕ ᵢ ⱼ ₖ ₗ ₘ ₙ ₒ ₚ ᵣ ₛ ₜ ᵤ ᵥ ₓ</div></div>
+    <div class="glyphrow"><div class="lbl">분수/로마 숫자 : 33자</div><div class="row">¼ ½ ¾ ⅓ ⅔ ⅛ ⅜ ⅝ ⅞ Ⅰ Ⅱ Ⅲ Ⅳ Ⅴ Ⅵ Ⅶ Ⅷ Ⅸ Ⅹ Ⅺ Ⅻ ⅰ ⅱ ⅲ ⅳ ⅴ ⅵ ⅶ ⅷ ⅸ ⅹ ⅺ ⅻ</div></div>
+    <div class="glyphrow"><div class="lbl">단위 기호 : 87자</div><div class="row">℃ ℉ ‰ % ℓ µ Ω ㎀ ㎁ ㎂ ㎃ ㎄ ㎈ ㎉ ㎊ ㎋ ㎌ ㎍ ㎎ ㎏ ㎐ ㎑ ㎒ ㎓ ㎔ ㎕ ㎖ ㎗ ㎘ ㎙ ㎚ ㎛ ㎜ ㎝ ㎞ ㎟ ㎠ ㎡ ㎢ ㎣ ㎤ ㎥ ㎦ ㎧ ㎨ ㎩ ㎪ ㎫ ㎬ ㎭ ㎮ ㎯ ㎰ ㎱ ㎲ ㎳ ㎴ ㎵ ㎶ ㎷ ㎸ ㎹ ㎺ ㎻ ㎼ ㎽ ㎾ ㎿ ㏀ ㏁ ㏂ ㏃ ㏄ ㏅ ㏆ ㏇ ㏈ ㏉ ㏊ ㏏ ㏐ ㏓ ㏖ ㏘ ㏛ ㏜ ㏝</div></div>
+    <div class="glyphrow"><div class="lbl">통화/상표/기타 : 20자</div><div class="row">₩ $ € ¥ £ ¢ ¤ © ® ™ № ℡ ☎ ☏ ㈜ ㉿ ♨ ♬ ª º</div></div>
+    <div class="glyphrow"><div class="lbl">라틴 확장 : 59자</div><div class="row">À Á Â Ã Ä Å Æ Ç È É Ê Ë Ì Í Î Ï Ñ Ò Ó Ô Õ Ö Ø Ù Ú Û Ü Ÿ Œ ß à á â ã ä å æ ç è é ê ë ì í î ï ñ ò ó ô õ ö ø ù ú û ü ÿ œ</div></div>
+    <div class="glyphrow"><div class="lbl">그리스 : 67자</div><div class="row">Α Β Γ Δ Ε Ζ Η Θ Ι Κ Λ Μ Ν Ξ Ο Π Ρ Σ Τ Υ Φ Χ Ψ Ω Ά Έ Ή Ί Ό Ύ Ώ Ϊ Ϋ α β γ δ ε ζ η θ ι κ λ μ ν ξ ο π ρ ς σ τ υ φ χ ψ ω ά έ ή ί ό ύ ώ ϊ ϋ</div></div>
+    <div class="glyphrow"><div class="lbl">키릴 : 76자</div><div class="row">А Б В Г Д Е Ё Ж З И Й К Л М Н О П Р С Т У Ф Х Ц Ч Ш Щ Ъ Ы Ь Э Ю Я Є І Ї Ў Ґ а б в г д е ё ж з и й к л м н о п р с т у ф х ц ч ш щ ъ ы ь э ю я є і ї ў ґ</div></div>
+    <div class="glyphrow"><div class="lbl">일본어 부호 : 9자</div><div class="row">、 。 「 」 『 』 ・ 〜 ～</div></div>
+    <div class="glyphrow"><div class="lbl">히라가나 : 84자</div><div class="row">ぁ あ ぃ い ぅ う ぇ え ぉ お か が き ぎ く ぐ け げ こ ご さ ざ し じ す ず せ ぜ そ ぞ た だ ち ぢ っ つ づ て で と ど な に ぬ ね の は ば ぱ ひ び ぴ ふ ぶ ぷ へ べ ぺ ほ ぼ ぽ ま み む め も ゃ や ゅ ゆ ょ よ ら り る れ ろ ゎ わ を ん ゔ ゕ ゖ</div></div>
+    <div class="glyphrow"><div class="lbl">가타카나 : 87자</div><div class="row">ァ ア ィ イ ゥ ウ ェ エ ォ オ カ ガ キ ギ ク グ ケ ゲ コ ゴ サ ザ シ ジ ス ズ セ ゼ ソ ゾ タ ダ チ ヂ ッ ツ ヅ テ デ ト ド ナ ニ ヌ ネ ノ ハ バ パ ヒ ビ ピ フ ブ プ ヘ ベ ペ ホ ボ ポ マ ミ ム メ モ ャ ヤ ュ ユ ョ ヨ ラ リ ル レ ロ ヮ ワ ヲ ン ヴ ヵ ヶ ヷ ヺ ー</div></div>
+    <div class="glyphrow"><div class="lbl">전기 기호 : 25자</div><div class="row">⏚ ⎓ ∿ ⏦ ⏧ ⌁ ⏛ ℧ ↯ ⏻ ⏼ ⏽ ⏾ ⭘ ⚠ ⚡ ☇ ⎍ ⎎ ⎏ ⎐ ⎑ ⎒ ⎔ ⏨</div></div>
+  </details>
+</section>
+
+<footer id="download">
+  <div class="inner">
+    <div>
+      <h3 data-copy="download.heading">다운로드</h3>
+      <p data-copy="download.link"><a href="https://github.com/dynamic-potato/kkakdugi-drafting" target="_blank" rel="noopener">GitHub 릴리스에서 TTF 받기</a></p>
+      <ul>
+        <li data-copy="download.item1">깍두기 도면체 ExtraLight / Light / Regular / Bold</li>
+      </ul>
+    </div>
+    <div>
+      <h3 data-copy="license.heading">라이선스 SIL OFL 1.1</h3>
+      <ul>
+        <li data-copy="license.item1">✓ 상업적 사용, 인쇄물, 영상, 게임 임베딩 자유</li>
+        <li data-copy="license.item2">✓ 수정과 재배포 자유 (같은 라이선스 유지)</li>
+        <li data-copy="license.item3">✗ 폰트 파일 단독 판매 금지</li>
+      </ul>
+      <p data-copy="footer.credit" style="margin-top:14px;">디자인/제작 : <strong>역동감자 Dynamic Potato</strong></p>
+    </div>
+  </div>
+</footer>
+
+<div class="copy-toast" id="copyToast"></div>
+
+<script>
+const tbtns = [...document.querySelectorAll("[data-set-theme]")];
+function theme() {
+  return document.documentElement.dataset.theme;
+}
+function setTheme(t) {
+  if (t !== theme()) pinDrawingBeforeThemeChange(t);
+  document.documentElement.dataset.theme = t;
+  localStorage.setItem("kkakdugi-theme", t);
+  tbtns.forEach((b) => b.classList.toggle("on", b.dataset.setTheme === t));
+  hideOptics();
+}
+tbtns.forEach((b) => b.addEventListener("click", () => setTheme(b.dataset.setTheme)));
+tbtns.forEach((b) => b.classList.toggle("on", b.dataset.setTheme === theme()));
+const cue = document.getElementById("themeCue");
+if (cue) {
+  setTimeout(() => cue.classList.add("on"), 700);
+  const stop = () => {
+    cue.classList.add("fade");
+    setTimeout(() => cue.classList.remove("on", "fade"), 500);
+  };
+  tbtns.forEach((b) => b.addEventListener("click", stop, { once: true }));
+  setTimeout(stop, 12e3);
+}
+const view = document.getElementById("dwgView");
+const content = document.getElementById("dwgContent");
+const lens = document.getElementById("lens");
+const lensInner = document.getElementById("lensInner");
+const chX = document.getElementById("chX");
+const chY = document.getElementById("chY");
+const lensFrames = [...document.querySelectorAll(".lens-frame")];
+const ZOOM = 2.4;
+const LENS = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--lens-size")) || 300;
+function syncLens() {
+  lensInner.innerHTML = "";
+  const clone = content.cloneNode(true);
+  clone.removeAttribute("id");
+  clone.querySelector("#dwgPrev")?.remove();
+  clone.style.position = "static";
+  clone.style.width = view.clientWidth + "px";
+  clone.style.height = view.clientHeight + "px";
+  clone.style.willChange = "auto";
+  clone.style.zoom = ZOOM;
+  clone.querySelectorAll("[contenteditable]").forEach((el) => el.removeAttribute("contenteditable"));
+  lensInner.appendChild(clone);
+}
+syncLens();
+addEventListener("resize", syncLens);
+const GDT_SYM = /[⌖⟂⌀Ⓜ⊥◎⌭⏥∅⌓⌒]/;
+function rebuildGdt(svg) {
+  const k = svg.getBoundingClientRect().width / svg.viewBox.baseVal.width;
+  const frames = [...svg.querySelectorAll("path")].map((p) => ({ p, r: p.getBoundingClientRect() })).filter(({ r }) => r.height / k > 34 && r.height / k < 147 && r.width / k > 113);
+  svg.querySelectorAll("text").forEach((t) => {
+    const raw = t.textContent;
+    if (!GDT_SYM.test(raw) || !/\s{2,}/.test(raw.trim())) return;
+    const cells = raw.trim().split(/\s{2,}/);
+    if (cells.length < 2) return;
+    const tr = t.getBoundingClientRect();
+    const mid = tr.top + tr.height / 2;
+    const box = frames.filter(({ r }) => r.top < mid && r.bottom > mid && r.left <= tr.left + 2 && r.right > tr.left + 4).sort((a, b) => tr.left - a.r.left - (tr.left - b.r.left))[0];
+    if (!box) return;
+    const widths = [];
+    let at = 0;
+    for (const c of cells) {
+      const i = raw.indexOf(c, at);
+      widths.push(t.getSubStringLength(i, c.length));
+      at = i + c.length;
+    }
+    const bb = box.p.getBBox();
+    const h = bb.height, pad = h * 0.34;
+    const cw = widths.map((w) => Math.max(w + 2 * pad, h));
+    const total = cw.reduce((a, b) => a + b, 0);
+    let d = `M${bb.x} ${bb.y}h${total}v${h}h${-total}Z`, acc = 0;
+    for (let i = 0; i < cw.length - 1; i++) {
+      acc += cw[i];
+      d += `M${bb.x + acc} ${bb.y}v${h}`;
+    }
+    box.p.setAttribute("d", d);
+    const m = t.getCTM().inverse().multiply(box.p.getCTM());
+    t.setAttribute("text-anchor", "middle");
+    t.textContent = "";
+    acc = 0;
+    cells.forEach((c, i) => {
+      const q = new DOMPoint(bb.x + acc + cw[i] / 2, bb.y).matrixTransform(m);
+      acc += cw[i];
+      const ts = document.createElementNS("http://www.w3.org/2000/svg", "tspan");
+      ts.setAttribute("x", q.x.toFixed(2));
+      ts.textContent = c;
+      t.appendChild(ts);
+    });
+  });
+}
+function straightenDatums(svg) {
+  const paths = [...svg.querySelectorAll("path")];
+  paths.forEach((boxEl) => {
+    if (!boxEl.getTotalLength) return;
+    const bb = boxEl.getBBox();
+    const w = bb.width, h = bb.height, x = bb.x, y = bb.y;
+    if (Math.abs(w - h) > 1 || w < 40 || w > 200) return;
+    if (Math.abs(boxEl.getTotalLength() - 4 * w) > 3) return;
+    const midY = y + h / 2;
+    const leader = paths.find((p) => {
+      if (p === boxEl || !p.getTotalLength) return false;
+      const len = p.getTotalLength();
+      if (len < w || len > w * 12) return false;
+      const a = p.getPointAtLength(0);
+      return Math.abs(a.y - midY) < 1.5 && (Math.abs(a.x - x) < 1.5 || Math.abs(a.x - (x + w)) < 1.5);
+    });
+    if (!leader) return;
+    const end = leader.getPointAtLength(leader.getTotalLength());
+    if (Math.abs(end.x - (x + w / 2)) < 1) return;
+    const below = y > end.y;
+    leader.setAttribute("d", `M${end.x.toFixed(2)} ${end.y.toFixed(2)}V${(below ? y : y + h).toFixed(2)}`);
+    const nx = end.x - w / 2;
+    boxEl.setAttribute("d", `M${nx.toFixed(2)} ${y}h${w}v${h}h-${w}v-${h}`);
+    const br = boxEl.getBoundingClientRect();
+    svg.querySelectorAll("text").forEach((t) => {
+      if (t.querySelector("tspan") || !/^[A-Z]$/.test(t.textContent.trim())) return;
+      const r = t.getBoundingClientRect();
+      const cy = r.top + r.height / 2;
+      if (cy < br.top || cy > br.bottom) return;
+      const dxScreen = br.left + br.width / 2 - (r.left + r.width / 2);
+      if (Math.abs(dxScreen) < 0.5) return;
+      const scale = t.getBBox().width / (r.width || 1);
+      const prev = t.getAttribute("transform") || "";
+      t.setAttribute("transform", `${prev} translate(${(dxScreen * scale).toFixed(2)} 0)`.trim());
+    });
+  });
+}
+function markRevisionRows(svg) {
+  const texts = [...svg.querySelectorAll("text")];
+  const find = (s) => texts.find((t) => t.textContent.trim() === s);
+  const [no, head, date] = [find("NO."), find("REVISIONS"), find("DATE")];
+  if (!no || !head || !date) return;
+  const nr = no.getBoundingClientRect(), hr = head.getBoundingClientRect(), dr = date.getBoundingClientRect();
+  const rows = texts.filter((t) => {
+    const r = t.getBoundingClientRect();
+    return r.bottom <= hr.top + 1 && r.top > hr.top - hr.height * 20 && Math.abs(r.left - nr.left) < nr.width && /^[A-Z]$/.test(t.textContent.trim());
+  });
+  rows.forEach((t) => {
+    const r = t.getBoundingClientRect(), midY = r.top + r.height / 2;
+    t.classList.add("dwg-rev-row");
+    texts.forEach((u) => {
+      const ur = u.getBoundingClientRect();
+      if (Math.abs(ur.top + ur.height / 2 - midY) > r.height * 0.6) return;
+      if (ur.left > nr.right && ur.right < dr.left) u.classList.add("dwg-rev-row");
+    });
+  });
+}
+function centerRevisionTable(svg) {
+  const texts = [...svg.querySelectorAll("text")];
+  const head = texts.find((t) => t.textContent.trim() === "REVISIONS");
+  const no = texts.find((t) => t.textContent.trim() === "NO.");
+  if (!head || !no) return;
+  const hb = head.getBBox(), nb = no.getBBox();
+  const yTop = hb.y - hb.height * 8, yBot = hb.y + hb.height * 2;
+  const subBoxes = (d) => {
+    const tok = d.match(/[MmHhVvLlZz]|-?[\d.]+(?:e-?\d+)?/g) || [];
+    const boxes = [];
+    let cur = [0, 0], start = [0, 0], box = null, cmd = "";
+    const push = () => {
+      if (box) boxes.push(box);
+      box = null;
+    };
+    const touch = () => {
+      if (!box) box = { x0: cur[0], x1: cur[0], y0: cur[1], y1: cur[1] };
+      box.x0 = Math.min(box.x0, cur[0]);
+      box.x1 = Math.max(box.x1, cur[0]);
+      box.y0 = Math.min(box.y0, cur[1]);
+      box.y1 = Math.max(box.y1, cur[1]);
+    };
+    for (let i = 0; i < tok.length; ) {
+      const t = tok[i];
+      if (/[A-Za-z]/.test(t)) {
+        cmd = t;
+        i++;
+        if (cmd === "Z" || cmd === "z") {
+          cur = [...start];
+          push();
+        }
+        continue;
+      }
+      const n = parseFloat(t);
+      if (cmd === "M" || cmd === "m" || cmd === "L" || cmd === "l") {
+        const m = parseFloat(tok[i + 1]);
+        i += 2;
+        if (cmd === "M" || cmd === "L") cur = [n, m];
+        else cur = [cur[0] + n, cur[1] + m];
+        if (cmd === "M" || cmd === "m") {
+          push();
+          start = [...cur];
+          cmd = cmd === "M" ? "L" : "l";
+        }
+        touch();
+      } else if (cmd === "H") {
+        cur = [n, cur[1]];
+        i++;
+        touch();
+      } else if (cmd === "h") {
+        cur = [cur[0] + n, cur[1]];
+        i++;
+        touch();
+      } else if (cmd === "V") {
+        cur = [cur[0], n];
+        i++;
+        touch();
+      } else if (cmd === "v") {
+        cur = [cur[0], cur[1] + n];
+        i++;
+        touch();
+      } else return null;
+    }
+    push();
+    return boxes;
+  };
+  const edges = new Set();
+  svg.querySelectorAll("path").forEach((p) => {
+    const bb = p.getBBox();
+    if (bb.x < nb.x - hb.height * 3 || bb.x > hb.x + 400) return;
+    const boxes = subBoxes(p.getAttribute("d") || "");
+    if (!boxes) return;
+    boxes.forEach((b) => {
+      const w = b.x1 - b.x0, ht = b.y1 - b.y0;
+      if (b.y0 > hb.y || b.y1 < hb.y + hb.height) return;
+      if (w > 400 || ht > hb.height * 12 || w < 1) return;
+      edges.add(+b.x0.toFixed(2));
+      edges.add(+b.x1.toFixed(2));
+    });
+  });
+  const xs = [...edges].sort((a, b) => a - b).filter((x, i, a) => i === 0 || x - a[i - 1] > 1);
+  if (xs.length < 4) return;
+  let widest = 0, wi = -1;
+  for (let i = 0; i + 1 < xs.length; i++) if (xs[i + 1] - xs[i] > widest) {
+    widest = xs[i + 1] - xs[i];
+    wi = i;
+  }
+  texts.forEach((t) => {
+    if (t.getAttribute("transform")) return;
+    const b = t.getBBox(), cx = b.x + b.width / 2, cy = b.y + b.height / 2;
+    if (cy < yTop || cy > yBot || cx < xs[0] || cx > xs[xs.length - 1]) return;
+    const i = xs.findIndex((x, k) => k + 1 < xs.length && cx >= x && cx < xs[k + 1]);
+    if (i < 0) return;
+    if (i === wi && t !== head) return;
+    const dx = (xs[i] + xs[i + 1]) / 2 - cx;
+    if (Math.abs(dx) > 0.3) t.setAttribute("transform", `translate(${dx.toFixed(2)} 0)`);
+  });
+}
+const dwgPrev = document.getElementById("dwgPrev");
+fetch("img/brkt_drawing.svg").then((r) => r.text()).then((t) => {
+  document.getElementById("dwgSvg").innerHTML = t;
+  dwgPrev.innerHTML = t;
+  const hero = document.getElementById("heroDwg");
+  if (hero) {
+    hero.innerHTML = t;
+    document.fonts.ready.then(() => {
+      const svg = hero.querySelector("svg");
+      if (svg) {
+        rebuildGdt(svg);
+        straightenDatums(svg);
+        markRevisionRows(svg);
+        centerRevisionTable(svg);
+      }
+    });
+  }
+  document.fonts.ready.then(() => {
+    document.querySelectorAll("#dwgSvg svg, #dwgPrev svg").forEach((svg) => {
+      rebuildGdt(svg);
+      straightenDatums(svg);
+      markRevisionRows(svg);
+      centerRevisionTable(svg);
+    });
+    syncLens();
+  });
+  syncLens();
+}).catch(() => {
+});
+const revProbe = document.getElementById("revProbe");
+function pinDrawingBeforeThemeChange(next) {
+  const live = document.getElementById("dwgSvg");
+  if (!live.firstChild) return;
+  dwgPrev.style.color = getComputedStyle(live).color;
+  dwgPrev.style.setProperty("--rev", getComputedStyle(revProbe).color);
+  for (const cls of ["dwg-geom", "dwg-dim", "dwg-note", "dwg-rev-row", "dwg-center"]) {
+    const el = live.querySelector("." + cls);
+    if (el) dwgPrev.style.setProperty("--" + cls, getComputedStyle(el).color);
+  }
+  dwgPrev.style.transition = "none";
+  dwgPrev.style.opacity = "1";
+  void dwgPrev.offsetWidth;
+  requestAnimationFrame(() => {
+    dwgPrev.style.transition = "opacity 0.45s ease";
+    dwgPrev.style.opacity = "0";
+  });
+}
+const COARSE = matchMedia("(hover: none), (pointer: coarse)").matches;
+if (COARSE) {
+  document.querySelectorAll(".dwg-hint").forEach((el) => {
+    el.textContent = "화면을 확대해서 보세요 (확대경은 마우스에서 동작합니다)";
+  });
+}
+const REACH = LENS / 2;
+function hideOptics() {
+  lens.classList.remove("on");
+  lensFrames.forEach((f) => f.classList.remove("on"));
+  chX.classList.remove("on");
+  chY.classList.remove("on");
+}
+window.addEventListener("pointermove", (e) => {
+  if (COARSE || e.pointerType === "touch") return;
+  const r = view.getBoundingClientRect();
+  const x = e.clientX - r.left, y = e.clientY - r.top;
+  const touching = x > -REACH && x < r.width + REACH && y > -REACH && y < r.height + REACH;
+  if (!touching) {
+    hideOptics();
+    return;
+  }
+  lens.style.left = x - LENS / 2 + "px";
+  lens.style.top = y - LENS / 2 + "px";
+  lensFrames.forEach((f) => {
+    f.style.left = x + "px";
+    f.style.top = y + "px";
+  });
+  lensInner.style.transform = `translate(${LENS / 2 - x * ZOOM}px, ${LENS / 2 - y * ZOOM}px)`;
+  lens.classList.add("on");
+  lensFrames.forEach((f) => f.classList.add("on"));
+  const inside = x >= 0 && x <= r.width && y >= 0 && y <= r.height;
+  const cad = theme() === "cad";
+  chX.classList.toggle("on", inside && cad);
+  chY.classList.toggle("on", inside && cad);
+  if (cad) {
+    chX.style.top = Math.min(Math.max(y, 0), r.height) + "px";
+    chY.style.left = Math.min(Math.max(x, 0), r.width) + "px";
+  }
+});
+document.documentElement.addEventListener("mouseleave", hideOptics);
+const cmp = document.getElementById("cmp");
+if (cmp) {
+  const [cmpA, cmpB, cmpDiv] = ["cmpA", "cmpB", "cmpDiv"].map((i) => document.getElementById(i));
+  const setWipe = (px) => {
+    const r = cmp.getBoundingClientRect();
+    const pct = Math.min(Math.max((px - r.left) / r.width, 0.04), 0.96) * 100;
+    cmp.style.setProperty("--wipe", pct.toFixed(1) + "%");
+  };
+  const wrapChars = (el, t) => {
+    el.innerHTML = [...t].map((c) => `<span class="g">${c === " " ? "&nbsp;" : c}</span>`).join("");
+  };
+  const syncWidths = () => {
+    const A = [...cmpA.querySelectorAll(".g")], B = [...cmpB.querySelectorAll(".g")];
+    [...A, ...B].forEach((el) => {
+      el.style.width = "";
+      el.style.display = "";
+    });
+    const wa = A.map((el) => el.getBoundingClientRect().width);
+    const wb = B.map((el) => el.getBoundingClientRect().width);
+    A.forEach((a, i) => {
+      const w = Math.max(wa[i] || 0, wb[i] || 0);
+      if (!w) return;
+      [a, B[i]].forEach((el) => {
+        if (!el) return;
+        el.style.display = "inline-block";
+        el.style.width = w.toFixed(2) + "px";
+        el.style.textAlign = "center";
+      });
+    });
+  };
+  const setSample = (t) => {
+    wrapChars(cmpA, t);
+    wrapChars(cmpB, t);
+    [cmpA, cmpB].forEach((el) => el.style.fontSize = "");
+    const room = cmp.clientWidth - 48;
+    const base = parseFloat(getComputedStyle(cmpB).fontSize);
+    const need = cmpB.scrollWidth;
+    if (need > room) {
+      const px = Math.max(base * room / need, 16);
+      [cmpA, cmpB].forEach((el) => el.style.fontSize = px.toFixed(1) + "px");
+    }
+    syncWidths();
+  };
+  addEventListener("resize", () => setSample(document.querySelector("#cmpSets button.on").dataset.t));
+  setSample(document.querySelector("#cmpSets button.on").dataset.t);
+  const cmpCue = document.getElementById("cmpCue");
+  const cueOff = () => cmpCue && cmpCue.classList.remove("on");
+  setTimeout(() => cmpCue && cmpCue.classList.add("on"), 700);
+  setTimeout(cueOff, 6e4);
+  let demoRaf = 0, demoDone = false;
+  const stopDemo = () => {
+    if (demoRaf) cancelAnimationFrame(demoRaf);
+    demoRaf = 0;
+  };
+  const runDemo = () => {
+    if (demoDone || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    demoDone = true;
+    const r = cmp.getBoundingClientRect();
+    const keys = [[0, 0.5], [900, 0.68], [2e3, 0.32], [2900, 0.5]];
+    const ease = (t) => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    const t0 = performance.now();
+    const step = (now) => {
+      const t = now - t0;
+      let i = keys.findIndex((k) => k[0] > t);
+      if (i < 0) {
+        setWipe(r.left + r.width * 0.5);
+        demoRaf = 0;
+        return;
+      }
+      const [ta, pa] = keys[i - 1], [tb, pb] = keys[i];
+      const p = pa + (pb - pa) * ease((t - ta) / (tb - ta));
+      setWipe(r.left + r.width * p);
+      demoRaf = requestAnimationFrame(step);
+    };
+    demoRaf = requestAnimationFrame(step);
+  };
+  cmp.addEventListener("pointerdown", stopDemo, true);
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver((es) => {
+      if (es.some((e) => e.isIntersecting)) {
+        runDemo();
+        io.disconnect();
+      }
+    }, { threshold: 0.6 });
+    io.observe(cmp);
+  }
+  let dragging = false;
+  cmp.addEventListener("pointerdown", (e) => {
+    dragging = true;
+    cueOff();
+    cmp.setPointerCapture(e.pointerId);
+    setWipe(e.clientX);
+  });
+  cmp.addEventListener("pointermove", (e) => {
+    if (dragging) setWipe(e.clientX);
+  });
+  cmp.addEventListener("pointerup", () => {
+    dragging = false;
+  });
+  document.querySelectorAll("#cmpSets button").forEach((b) => b.addEventListener("click", () => {
+    document.querySelectorAll("#cmpSets button").forEach((x) => x.classList.remove("on"));
+    b.classList.add("on");
+    setSample(b.dataset.t);
+  }));
+  const CANDIDATES = [
+    ["굴림", "Gulim, 굴림"],
+    ["돋움", "Dotum, 돋움"],
+    ["맑은 고딕", "Malgun Gothic, 맑은 고딕"],
+    ["Arial", "Arial"],
+    ["Helvetica", "Helvetica"],
+    ["Roboto", "Roboto"],
+    ["Apple SD Gothic Neo", "Apple SD Gothic Neo"],
+    ["시스템 기본", "system-ui"]
+  ];
+  const probe = document.createElement("span");
+  probe.textContent = "일0Oil1MWmw";
+  probe.style.cssText = "position:absolute;left:-9999px;top:-9999px;font-size:80px;white-space:nowrap";
+  const installed = (stack) => {
+    document.body.appendChild(probe);
+    const w = (f) => {
+      probe.style.fontFamily = f;
+      return probe.getBoundingClientRect().width;
+    };
+    const gen = ["monospace", "serif", "sans-serif"];
+    const base = gen.map(w);
+    const test = gen.map((g) => w(`${stack}, ${g}`));
+    probe.remove();
+    return test.some((t, i) => Math.abs(t - base[i]) > 0.5);
+  };
+  const ua = navigator.userAgent, plat = navigator.platform || "";
+  const isWin = /Windows/i.test(ua), isApple = /Mac|iPhone|iPad/i.test(plat) || /Mac OS X|iPhone|iPad/i.test(ua);
+  const OS_ONLY = { "Apple SD Gothic Neo": "apple", "Helvetica": "apple", "굴림": "win", "돋움": "win", "맑은 고딕": "win" };
+  const osOk = (name) => {
+    const o = OS_ONLY[name];
+    return !o || (o === "win" ? isWin : isApple);
+  };
+  const sig = (stack) => {
+    document.body.appendChild(probe);
+    const w = (f) => {
+      probe.style.fontFamily = f;
+      return probe.getBoundingClientRect().width;
+    };
+    const r = ["monospace", "serif", "sans-serif"].map((g) => Math.round(w(`${stack}, ${g}`) * 4)).join("|");
+    probe.remove();
+    return r;
+  };
+  document.fonts.ready.then(() => {
+    const seen = new Set();
+    const avail = CANDIDATES.filter(([n, stack]) => {
+      if (n === "시스템 기본") return true;
+      if (!osOk(n) || !installed(stack)) return false;
+      const k = sig(stack);
+      if (seen.has(k)) return false;
+      seen.add(k);
+      return true;
+    });
+    const REP = ["굴림", "Apple SD Gothic Neo", "맑은 고딕"];
+    const pick = REP.map((n) => avail.find(([m]) => m === n)).find(Boolean) || ["시스템 기본", "system-ui"];
+    const build = (box, applyFn) => applyFn(`기기 대표 글꼴: ${pick[0]}`, pick[1]);
+    build(null, (name, stack) => {
+      cmpA.style.fontFamily = stack + ", sans-serif";
+      document.querySelectorAll(".cmp-tag.l").forEach((t) => t.textContent = name);
+      syncWidths();
+    });
+    build(null, (name, stack) => {
+      const c2a = document.getElementById("cmp2A");
+      if (c2a) c2a.style.fontFamily = stack + ", sans-serif";
+      document.querySelectorAll(".cap-sysfont").forEach((t) => {
+        const s = document.createElement("span");
+        s.append("기기 대표 글꼴", document.createElement("br"), pick[0]);
+        t.replaceChildren(s);
+      });
+      if (window._alignGuides) window._alignGuides();
+    });
+    build(null, (name, stack) => {
+      const sv = document.querySelector(".clr-sys");
+      if (sv) sv.style.setProperty("--clr-sys", stack + ", sans-serif");
+      document.querySelectorAll(".clr-sysname").forEach((t) => t.textContent = name);
+    });
+  });
+}
+const ALIGN_SAMPLES = {
+  "한국어": "- XXXX 평가 시 아래 사항 따를 것\n  - KS-AA-01 1.2.0의 표준 평가 조건\n  - KS-BB-02 2.3.1의 극저온 환경 가진 조건\n  - MIL-STD-DDD 7.9.5 DROP TEST",
+  "English": "- FOR XXXX TEST, FOLLOW THE ITEMS BELOW\n  - KS-AA-01 1.2.0 STANDARD TEST CONDITION\n  - KS-BB-02 2.3.1 CRYOGENIC VIBRATION CONDITION\n  - MIL-STD-DDD 7.9.5 DROP TEST",
+  "にほんご": "- XXXX ヒョウカジ ツギノ コウモクニ ヨルコト\n  - KS-AA-01 1.2.0 ノ ヒョウジュン ヒョウカ ジョウケン\n  - KS-BB-02 2.3.1 ノ キョクテイオン カンキョウ カシン ジョウケン\n  - MIL-STD-DDD 7.9.5 DROP TEST",
+  "Русский": "- ПРИ ОЦЕНКЕ XXXX СОБЛЮДАТЬ ПУНКТЫ НИЖЕ\n  - KS-AA-01 1.2.0 СТАНДАРТНЫЕ УСЛОВИЯ ОЦЕНКИ\n  - KS-BB-02 2.3.1 УСЛОВИЯ ВИБРАЦИИ В КРИОГЕННОЙ СРЕДЕ\n  - MIL-STD-DDD 7.9.5 DROP TEST"
+};
+{
+  const box = document.getElementById("cmp2Langs");
+  const apply2 = (key) => {
+    const txt = ALIGN_SAMPLES[key];
+    for (const id of ["cmp2A", "cmp2B"]) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = txt;
+    }
+    if (window._alignGuides) window._alignGuides();
+  };
+  if (box) {
+    Object.keys(ALIGN_SAMPLES).forEach((key, i) => {
+      const btn = document.createElement("button");
+      btn.textContent = key;
+      btn.className = i === 0 ? "on" : "";
+      btn.addEventListener("click", () => {
+        box.querySelectorAll("button").forEach((x) => x.classList.remove("on"));
+        btn.classList.add("on");
+        apply2(key);
+      });
+      box.appendChild(btn);
+    });
+  }
+}
+const cmp2 = document.getElementById("cmp2");
+if (cmp2) {
+  const drawGuides = () => {
+    for (const body of cmp2.querySelectorAll(".stack-body")) {
+      const textEl = body.querySelector(".stack-text"), wrap = body.querySelector(".stack-guides");
+      if (!textEl || !wrap) continue;
+      wrap.innerHTML = "";
+      const fs = parseFloat(getComputedStyle(textEl).fontSize);
+      const half = fs * 0.4;
+      const g = document.createElement("div");
+      g.className = "guide guide-grid";
+      g.style.width = "calc(100% + 2px)";
+      g.style.background = `repeating-linear-gradient(90deg, var(--grid-faint) 0 1px, transparent 1px ${half.toFixed(2)}px)`;
+      wrap.appendChild(g);
+    }
+  };
+  window._alignGuides = drawGuides;
+  document.fonts.ready.then(drawGuides);
+  addEventListener("resize", drawGuides);
+  const gt = document.getElementById("guideToggle");
+  if (gt) {
+    let blinkTimer = 0;
+    const blinkOn = () => {
+      clearTimeout(blinkTimer);
+      cmp2.classList.remove("guides-blink", "guides-off");
+      void cmp2.offsetWidth;
+      cmp2.classList.add("guides-blink");
+      blinkTimer = setTimeout(() => cmp2.classList.remove("guides-blink"), 1700);
+    };
+    const gcue = document.getElementById("guideCue");
+    const gcueOff = () => {
+      if (!gcue || !gcue.classList.contains("on")) return;
+      gcue.classList.add("fade");
+      setTimeout(() => gcue.classList.remove("on", "fade"), 500);
+    };
+    gt.addEventListener("click", () => {
+      gcueOff();
+      const on = !gt.classList.contains("on");
+      gt.classList.toggle("on", on);
+      gt.setAttribute("aria-pressed", String(on));
+      if (!on) {
+        clearTimeout(blinkTimer);
+        cmp2.classList.remove("guides-blink");
+        cmp2.classList.add("guides-off");
+        return;
+      }
+      blinkOn();
+    });
+    if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const io2 = new IntersectionObserver((es) => {
+        if (es.some((e) => e.isIntersecting)) {
+          if (gt.classList.contains("on")) blinkOn();
+          if (gcue) {
+            gcue.classList.add("on");
+            setTimeout(gcueOff, 12e3);
+          }
+          io2.disconnect();
+        }
+      }, { threshold: 0.6 });
+      io2.observe(cmp2);
+    }
+  }
+}
+const tester = document.getElementById("tester");
+function plainPaste(e) {
+  e.preventDefault();
+  const text = (e.clipboardData || window.clipboardData).getData("text/plain");
+  document.execCommand("insertText", false, text);
+}
+tester.addEventListener("paste", plainPaste);
+const size = document.getElementById("size");
+const sizeval = document.getElementById("sizeval");
+const wbtns = [...document.querySelectorAll("#weights button")];
+function apply() {
+  const on = wbtns.find((b) => b.classList.contains("on"));
+  tester.style.fontWeight = on ? on.dataset.w : 400;
+  tester.style.fontSize = size.value + "px";
+  sizeval.textContent = size.value + "px";
+}
+wbtns.forEach((b) => b.addEventListener("click", () => {
+  wbtns.forEach((x) => x.classList.remove("on"));
+  b.classList.add("on");
+  apply();
+}));
+size.addEventListener("input", apply);
+apply();
+const toastEl = document.getElementById("copyToast");
+let toastTimer = null;
+function copyChar(ch) {
+  const legacy = () => {
+    const t = document.createElement("textarea");
+    t.value = ch;
+    t.style.position = "fixed";
+    t.style.opacity = "0";
+    document.body.appendChild(t);
+    t.select();
+    document.execCommand("copy");
+    t.remove();
+  };
+  if (navigator.clipboard && window.isSecureContext) {
+    return navigator.clipboard.writeText(ch).catch(legacy);
+  }
+  legacy();
+  return Promise.resolve();
+}
+document.querySelectorAll(".glyphrow .row").forEach((row) => {
+  const chars = row.textContent.trim().split(/\s+/);
+  row.textContent = "";
+  chars.forEach((ch) => {
+    const sp = document.createElement("span");
+    sp.textContent = ch;
+    sp.addEventListener("click", () => copyChar(ch).then(() => {
+      toastEl.textContent = "복사됨 " + ch;
+      toastEl.style.display = "block";
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toastEl.style.display = "none";
+      }, 1200);
+    }));
+    row.appendChild(sp);
+  });
+});
+(() => {
+  const AH = (x, y, dir) => {
+    const r = dir * Math.PI / 180, L = 16, W = 5;
+    const p = [
+      [x, y],
+      [x - L * Math.cos(r) + W * Math.sin(r), y - L * Math.sin(r) - W * Math.cos(r)],
+      [x - L * Math.cos(r) - W * Math.sin(r), y - L * Math.sin(r) + W * Math.cos(r)]
+    ];
+    return `<path class="ah" d="M${p.map((q) => q.join(" ")).join(" L")}Z"/>`;
+  };
+  const DIM = `
+    <line x1="80" y1="160" x2="80" y2="250"/><line x1="340" y1="160" x2="340" y2="250"/>
+    <line x1="80" y1="230" x2="180" y2="230"/><line x1="240" y1="230" x2="340" y2="230"/>${AH(80, 230, 180)}${AH(340, 230, 0)}
+    <text x="210" y="228">6</text>`;
+  const PN = `
+    <text x="210" y="210" style="font-size:72px">09-060</text>`;
+  const views = { dim: DIM, pn: PN };
+  let mode = "dim", deg = 0;
+  const groups = () => document.querySelectorAll(".clr-svg .clr-rot");
+  const draw = () => groups().forEach((g) => {
+    g.innerHTML = views[mode];
+    g.style.transform = `rotate(${deg}deg)`;
+  });
+  const sets = document.getElementById("clrSets");
+  if (!sets) return;
+  sets.querySelectorAll("button[data-v]").forEach((b) => b.addEventListener("click", () => {
+    sets.querySelectorAll("button[data-v]").forEach((x) => x.classList.toggle("on", x === b));
+    mode = b.dataset.v;
+    draw();
+  }));
+  let wiggles = [];
+  const stopWiggle = () => {
+    wiggles.forEach((a) => a.cancel());
+    wiggles = [];
+  };
+  document.getElementById("clrRot").addEventListener("click", () => {
+    stopWiggle();
+    deg += 90;
+    groups().forEach((g) => g.style.transform = `rotate(${deg}deg)`);
+    document.getElementById("clrDeg").textContent = `${deg % 360}°`;
+  });
+  draw();
+  const clrWrap = document.querySelector(".clr-wrap");
+  if (clrWrap && "IntersectionObserver" in window && Element.prototype.animate && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const io3 = new IntersectionObserver((es) => {
+      if (!es.some((e) => e.isIntersecting)) return;
+      io3.disconnect();
+      if (deg !== 0) return;
+      const k = [0, 12, -12, 12, -12, 0].map((a) => ({ transform: `rotate(${a}deg)` }));
+      wiggles = [...groups()].map((g) => g.animate(k, { duration: 1800, easing: "ease-in-out" }));
+    }, { threshold: 0.6 });
+    io3.observe(clrWrap);
+  }
+})();
+</script>
+</body>
+</html>
