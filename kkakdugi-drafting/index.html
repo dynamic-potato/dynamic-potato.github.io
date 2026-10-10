@@ -1264,6 +1264,20 @@ if (cmp) {
         el.style.textAlign = "center";
       });
     });
+    alignBaselines();
+  };
+  const baselineY = (el) => {
+    const s = document.createElement("span");
+    s.style.cssText = "display:inline-block;width:0;height:0;vertical-align:baseline";
+    el.appendChild(s);
+    const y = s.getBoundingClientRect().top - el.getBoundingClientRect().top;
+    s.remove();
+    return y;
+  };
+  const alignBaselines = () => {
+    cmpB.style.paddingTop = "";
+    const d = baselineY(cmpB) - baselineY(cmpA);
+    if (Math.abs(d) > 0.25) cmpB.style.paddingTop = (parseFloat(getComputedStyle(cmpB).paddingTop) - d).toFixed(2) + "px";
   };
   const setSample = (t) => {
     wrapChars(cmpA, t);
@@ -1297,7 +1311,7 @@ if (cmp) {
     const ease = (t) => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
     const t0 = performance.now();
     const step = (now) => {
-      const t = now - t0;
+      const t = Math.max(0, now - t0);
       let i = keys.findIndex((k) => k[0] > t);
       if (i < 0) {
         setWipe(r.left + r.width * 0.5);
