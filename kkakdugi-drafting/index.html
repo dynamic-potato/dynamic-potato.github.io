@@ -291,7 +291,7 @@ h2 {
 .tester-hint { font-size: 1.02rem; color: var(--ink-soft); margin-top: 8px; }
 
 .cmp { position: relative; border: 1px solid var(--line); background: var(--surface); overflow: hidden;
-  user-select: none; touch-action: none; cursor: ew-resize; }
+  user-select: none; -webkit-user-select: none; touch-action: none; cursor: ew-resize; }   
 .cmp-layer { padding: 40px 24px 44px; white-space: nowrap; overflow: hidden; text-align: center;
   font-size: clamp(2rem, 5.4vw, 4rem); line-height: 1.4; letter-spacing: 0.02em; }
 .cmp-a { color: var(--ink-soft); font-family: Gulim, 굴림, Dotum, 돋움, "Malgun Gothic", sans-serif; }
@@ -1323,6 +1323,8 @@ if (cmp) {
   }
   let dragging = false;
   cmp.addEventListener("pointerdown", (e) => {
+    e.preventDefault();
+    window.getSelection()?.removeAllRanges();
     dragging = true;
     cueOff();
     cmp.setPointerCapture(e.pointerId);
@@ -1332,6 +1334,9 @@ if (cmp) {
     if (dragging) setWipe(e.clientX);
   });
   cmp.addEventListener("pointerup", () => {
+    dragging = false;
+  });
+  cmp.addEventListener("pointercancel", () => {
     dragging = false;
   });
   document.querySelectorAll("#cmpSets button").forEach((b) => b.addEventListener("click", () => {
