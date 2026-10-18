@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>역동감자 깍두기 도면체</title>
-<meta name="description" content="도면을 위한 한글 글꼴. 깍두기 도면체입니다.">
+<title>깍두기 도면체 (Kkakdugi Drafting) : 도면을 위한 무료 한글 글꼴</title>
+<meta name="description" content="도면에서도 한글이 돋보이도록 만든 글꼴(폰트)입니다. 비슷한 글자와의 명확한 구분, 반각/전각의 칼같은 정렬, 절대 헷갈리지 않는 6과 9의 밑줄 표시를 갖췄습니다. 한글 11,172자 전량과 도면/수학/전기 기호를 담았고 SIL OFL 1.1로 상업적 사용이 가능합니다.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://dynamic-potato.github.io/kkakdugi-drafting/">
 <meta property="og:title" content="역동감자 깍두기 도면체">
@@ -13,6 +13,34 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://dynamic-potato.github.io/kkakdugi-drafting/">
+
+<meta name="google-site-verification" content="EXrGkqFivEZbO2qoDsa9ZsvlYoC1i6VjGwU6idl9ges">
+<meta name="naver-site-verification" content="">
+
+<script defer src="js/umami.js" data-website-id="ab36ac80-a253-4df2-83a7-ce72c745362d" data-domains="dynamic-potato.github.io"></script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "CreativeWork",
+ "name": "깍두기 도면체",
+ "alternateName": "Kkakdugi Drafting",
+ "description": "도면에서도 한글이 돋보이도록 만든 글꼴(폰트)입니다. 비슷한 글자와의 명확한 구분, 반각/전각의 칼같은 정렬, 절대 헷갈리지 않는 6과 9의 밑줄 표시를 갖췄습니다. 한글 11,172자 전량과 도면/수학/전기 기호를 담았고 SIL OFL 1.1로 상업적 사용이 가능합니다.",
+ "url": "https://dynamic-potato.github.io/kkakdugi-drafting/",
+ "author": {
+  "@type": "Person",
+  "name": "Dynamic Potato",
+  "alternateName": "역동감자",
+  "url": "https://github.com/dynamic-potato"
+ },
+ "license": "https://openfontlicense.org",
+ "isAccessibleForFree": true,
+ "inLanguage": "ko",
+ "sameAs": [
+  "https://github.com/dynamic-potato/kkakdugi-drafting"
+ ]
+}
+</script>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -132,6 +160,9 @@ h2 {
   text-align: center; font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300;
   font-size: clamp(1.5rem, 3.6vw, 2.6rem); line-height: 1.95; letter-spacing: 0.01em;
 }
+
+.mobile-note { display: none; font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300; font-size: .9rem; color: var(--ink-soft); margin: 0 0 18px; word-break: keep-all; }
+@media (max-width: 600px) { .mobile-note { display: block; } }
 .story-big strong { font-weight: 700; color: var(--em, var(--ink)); }
 .story-fn { text-align: center; font-size: 1rem; color: var(--ink-soft); margin-top: 20px; }
 .story-fold { margin-top: 30px; }
@@ -596,9 +627,15 @@ footer a { color: #9cc4ee; }
 .clr-wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 18px; margin-top: 14px; }
 .clr-panel { margin: 0; border: 1px solid var(--line); background: var(--surface); padding: 8px 8px 4px; }
 .clr-tag { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300; font-size: .95rem; color: var(--ink-soft); }
-.clr-svg { display: block; width: 100%; max-width: 260px; margin: 0 auto; color: var(--ink); }   
-.clr-svg .clr-rot { transform-box: view-box; transform-origin: 210px 210px; transition: transform .45s ease; }
-.clr-svg line, .clr-svg path { stroke: currentColor; stroke-width: 2.2; fill: none; }
+.clr-svg { display: block; width: 100%; max-width: 400px; margin: 0 auto; color: var(--ink); }   
+
+.clr-svg .thin { stroke-width: 1.8; }
+.clr-svg line, .clr-svg path, .clr-svg circle, .clr-svg rect { stroke: currentColor; stroke-width: 2.8; fill: none; }
+
+.clr-svg .dwg-geom { color: var(--dwg-geom, currentColor); }
+.clr-svg .dwg-dim { color: var(--dwg-dim, currentColor); }
+.clr-svg .dwg-center { color: var(--dwg-center, currentColor); }
+.clr-svg .dwg-note { color: var(--dwg-note, currentColor); }   
 .clr-svg .ah { fill: currentColor; stroke: none; }
 .clr-svg text { fill: currentColor; font-size: 46px; dominant-baseline: central; text-anchor: middle; }
 .clr-kk text { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300; }
@@ -608,8 +645,8 @@ footer a { color: #9cc4ee; }
 h2 u { text-decoration-thickness: 2px; text-underline-offset: .2em; }
 
 .mathshow { margin: 48px 0 56px; }
-.ms-topics { margin: 14px 0 14px; }
-.ms-stage { display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; align-items: center; gap: 8px; }
+.ms-topics { max-width: 700px; margin: 14px auto 14px; padding-left: 52px; box-sizing: border-box; }   
+.ms-stage { display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; align-items: center; gap: 8px; max-width: 700px; margin: 0 auto; }   
 .ms-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 14px; min-width: 0; }
 .ms-col { min-width: 0; display: flex; flex-direction: column; }
 .ms-cap { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300; font-size: .92rem; color: var(--ink-soft); margin: 0 0 6px; }
@@ -624,457 +661,6 @@ h2 u { text-decoration-thickness: 2px; text-underline-offset: .2em; }
 .ms-slide math { font-size: 26px; color: var(--ink); margin: 0 !important; overflow: hidden; max-width: 100%; }
 
 .ms-slide math * { margin: revert; padding: revert; }
-.ms-box.m-sys math { font-family: math; }
-.ms-box.m-kk math { font-family: "Kkakdugi Drafting", math; font-weight: 300; }
-
-.ms-pcb { position: relative; padding: 0; }
-.ms-pcbbox { position: absolute; inset: 10px; }
-.ms-pcbbox svg { width: 100%; height: 100%; display: block; }
-.ms-pcbbox .pcb-edge { stroke: var(--ink-soft); fill: none; }
-.ms-pcbbox .pcb-cu-top, .ms-pcbbox .pcb-cu-bot { stroke: var(--line); fill: none; opacity: .85; }
-.ms-pcbbox .pcb-pour { fill: var(--line); stroke: none; opacity: .22; }
-.ms-pcbbox .pcb-pad { fill: var(--accent); stroke: none; }
-.ms-pcbbox .pcb-pad .pcb-hole, .ms-pcbbox .pcb-pad circle { fill: var(--surface); }
-.ms-pcbbox .pcb-silk { stroke: var(--ink); fill: none; }
-.ms-pcbbox .pcb-silk-t { fill: var(--ink); stroke: none; font-family: "Kkakdugi Drafting", sans-serif; font-weight: 400; }
-.ms-box.m-sys .ms-pcbbox .pcb-silk-t { font-family: sans-serif; }
-.ms-nav { width: 44px; height: 44px; border: 1px solid var(--line); background: var(--surface); color: var(--ink);
-  font-family: "Kkakdugi Drafting", sans-serif; font-size: 1.6rem; line-height: 1; cursor: pointer; margin-top: 24px; }
-.ms-nav:hover { border-color: var(--ink); }
-.ms-nav:focus-visible, .ms-topics button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.ms-foot { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 12px; }
-.ms-label { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 700; font-size: 1rem; color: var(--accent); min-height: 1.4em; }
-.ms-dots { display: flex; gap: 8px; }
-.ms-dots i { width: 8px; height: 8px; border: 1px solid var(--ink-soft); }
-.ms-dots i.on { background: var(--ink); border-color: var(--ink); }
-@media (max-width: 640px) {
-  .ms-stage { grid-template-columns: 34px minmax(0, 1fr) 34px; gap: 6px; }
-  .ms-nav { width: 34px; height: 44px; font-size: 1.3rem; margin-top: 0; }
-  .ms-slide math { font-size: 20px; }
-  .ms-box { min-height: 170px; }
-}
-@media (prefers-reduced-motion: reduce) { .ms-slide, .ms-slide.is-on { transition: none; } }
-
-.mathshow { margin: 48px 0 56px; }
-.ms-topics { margin: 14px 0 14px; }
-.ms-stage { display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; align-items: center; gap: 8px; }
-.ms-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 14px; min-width: 0; }
-.ms-col { min-width: 0; display: flex; flex-direction: column; }
-.ms-cap { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300; font-size: .92rem; color: var(--ink-soft); margin: 0 0 6px; }
-.ms-box { flex: 1; border: 1px solid var(--line); background: var(--surface); overflow: hidden; touch-action: pan-y; min-height: 230px;
-  display: grid; }
-.ms-slides { display: grid; min-width: 0; }
-.ms-slide { grid-area: 1 / 1; min-width: 0; display: flex; align-items: center; justify-content: center; padding: 14px 12px;
-  visibility: hidden; opacity: 0; transform: translateX(100%);
-  transition: transform .42s cubic-bezier(.2,.7,.2,1), opacity .42s ease, visibility 0s linear .42s; }
-.ms-slide.is-on { visibility: visible; opacity: 1; transform: none;
-  transition: transform .42s cubic-bezier(.2,.7,.2,1), opacity .42s ease, visibility 0s; }
-.ms-slide math { font-size: 26px; color: var(--ink); margin: 0 !important; overflow: hidden; max-width: 100%; }
-
-.ms-slide math * { margin: revert; padding: revert; }
-.ms-box.m-sys math { font-family: math; }
-.ms-box.m-kk math { font-family: "Kkakdugi Drafting", math; font-weight: 300; }
-
-.ms-pcb { position: relative; padding: 0; }
-.ms-pcbbox { position: absolute; inset: 10px; display: flex; align-items: center; justify-content: center; }
-
-.ms-pcbbox svg { height: 100%; width: auto; max-width: 100%; display: block; overflow: hidden; }
-.ms-pcbbox .pcb-edge { stroke: var(--ink-soft); fill: none; }
-.ms-pcbbox .pcb-cu-top, .ms-pcbbox .pcb-cu-bot { stroke: var(--line); fill: none; opacity: .85; }
-.ms-pcbbox .pcb-pour { fill: var(--line); stroke: none; opacity: .22; }
-.ms-pcbbox .pcb-pad { fill: var(--accent); stroke: none; }
-.ms-pcbbox .pcb-pad .pcb-hole, .ms-pcbbox .pcb-pad circle { fill: var(--surface); }
-.ms-pcbbox .pcb-silk { stroke: var(--ink); fill: none; }
-.ms-pcbbox .pcb-silk-t { fill: var(--ink); stroke: none; font-family: "Kkakdugi Drafting", sans-serif; font-weight: 400; }
-.ms-box.m-sys .ms-pcbbox .pcb-silk-t { font-family: sans-serif; }
-.ms-nav { width: 44px; height: 44px; border: 1px solid var(--line); background: var(--surface); color: var(--ink);
-  font-family: "Kkakdugi Drafting", sans-serif; font-size: 1.6rem; line-height: 1; cursor: pointer; margin-top: 24px; }
-.ms-nav:hover { border-color: var(--ink); }
-.ms-nav:focus-visible, .ms-topics button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.ms-foot { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 12px; }
-.ms-label { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 700; font-size: 1rem; color: var(--accent); min-height: 1.4em; }
-.ms-dots { display: flex; gap: 8px; }
-.ms-dots i { width: 8px; height: 8px; border: 1px solid var(--ink-soft); }
-.ms-dots i.on { background: var(--ink); border-color: var(--ink); }
-@media (max-width: 640px) {
-  .ms-stage { grid-template-columns: 34px minmax(0, 1fr) 34px; gap: 6px; }
-  .ms-nav { width: 34px; height: 44px; font-size: 1.3rem; margin-top: 0; }
-  .ms-slide math { font-size: 20px; }
-  .ms-box { min-height: 170px; }
-}
-@media (prefers-reduced-motion: reduce) { .ms-slide, .ms-slide.is-on { transition: none; } }
-
-.mathshow { margin: 48px 0 56px; }
-.ms-topics { margin: 14px 0 14px; }
-.ms-stage { display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; align-items: center; gap: 8px; }
-.ms-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 14px; min-width: 0; }
-.ms-col { min-width: 0; display: flex; flex-direction: column; }
-.ms-cap { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300; font-size: .92rem; color: var(--ink-soft); margin: 0 0 6px; }
-.ms-box { flex: 1; border: 1px solid var(--line); background: var(--surface); overflow: hidden; touch-action: pan-y; min-height: 230px;
-  display: grid; }
-.ms-slides { display: grid; min-width: 0; }
-.ms-slide { grid-area: 1 / 1; min-width: 0; display: flex; align-items: center; justify-content: center; padding: 14px 12px;
-  visibility: hidden; opacity: 0; transform: translateX(100%);
-  transition: transform .42s cubic-bezier(.2,.7,.2,1), opacity .42s ease, visibility 0s linear .42s; }
-.ms-slide.is-on { visibility: visible; opacity: 1; transform: none;
-  transition: transform .42s cubic-bezier(.2,.7,.2,1), opacity .42s ease, visibility 0s; }
-.ms-slide math { font-size: 26px; color: var(--ink); margin: 0 !important; overflow: hidden; max-width: 100%; }
-
-.ms-slide math * { margin: revert; padding: revert; }
-.ms-box.m-sys math { font-family: math; }
-.ms-box.m-kk math { font-family: "Kkakdugi Drafting", math; font-weight: 300; }
-
-.ms-pcb { position: relative; padding: 0; }
-.ms-pcbbox { position: absolute; inset: 10px; display: flex; align-items: center; justify-content: center; }
-
-.ms-pcbbox svg { height: 100%; width: auto; max-width: 100%; display: block; overflow: hidden; }
-
-.ms-pcbbox { --pcb-pad: #d4af37; --pcb-cu: var(--line); --pcb-silk: var(--ink); }
-:root[data-theme="plotter"] .ms-pcbbox { --pcb-pad: #9ea3a9; }
-:root[data-theme="cad"] .ms-pcbbox { --pcb-pad: #e8423f; --pcb-cu: #8e1c1c; --pcb-silk: #ffd93b; }
-.ms-pcbbox .pcb-edge { stroke: var(--ink-soft); fill: none; }
-.ms-pcbbox .pcb-cu-top, .ms-pcbbox .pcb-cu-bot { stroke: var(--pcb-cu); fill: none; opacity: .9; }
-.ms-pcbbox .pcb-pour { fill: var(--pcb-cu); stroke: none; opacity: .35; }
-.ms-pcbbox .pcb-pad { fill: var(--pcb-pad); stroke: none; }
-.ms-pcbbox .pcb-pad .pcb-hole, .ms-pcbbox .pcb-pad circle { fill: var(--surface); }
-.ms-pcbbox .pcb-silk { stroke: var(--pcb-silk); fill: none; }
-.ms-pcbbox .pcb-silk-t { fill: var(--pcb-silk); stroke: none; font-family: "Kkakdugi Drafting", sans-serif; font-weight: 400; }
-.ms-box.m-sys .ms-pcbbox .pcb-silk-t { font-family: sans-serif; }
-.ms-nav { width: 44px; height: 44px; border: 1px solid var(--line); background: var(--surface); color: var(--ink);
-  font-family: "Kkakdugi Drafting", sans-serif; font-size: 1.6rem; line-height: 1; cursor: pointer; margin-top: 24px; }
-.ms-nav:hover { border-color: var(--ink); }
-.ms-nav:focus-visible, .ms-topics button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.ms-foot { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 12px; }
-.ms-label { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 700; font-size: 1rem; color: var(--accent); min-height: 1.4em; }
-.ms-dots { display: flex; gap: 8px; }
-.ms-dots i { width: 8px; height: 8px; border: 1px solid var(--ink-soft); }
-.ms-dots i.on { background: var(--ink); border-color: var(--ink); }
-@media (max-width: 640px) {
-  .ms-stage { grid-template-columns: 34px minmax(0, 1fr) 34px; gap: 6px; }
-  .ms-nav { width: 34px; height: 44px; font-size: 1.3rem; margin-top: 0; }
-  .ms-slide math { font-size: 20px; }
-  .ms-box { min-height: 170px; }
-}
-@media (prefers-reduced-motion: reduce) { .ms-slide, .ms-slide.is-on { transition: none; } }
-
-.mathshow { margin: 48px 0 56px; }
-.ms-topics { margin: 14px 0 14px; }
-.ms-stage { display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; align-items: center; gap: 8px; }
-.ms-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 14px; min-width: 0; }
-.ms-col { min-width: 0; display: flex; flex-direction: column; }
-.ms-cap { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300; font-size: .92rem; color: var(--ink-soft); margin: 0 0 6px; }
-.ms-box { flex: 1; border: 1px solid var(--line); background: var(--surface); overflow: hidden; touch-action: pan-y; min-height: 230px;
-  display: grid; }
-.ms-slides { display: grid; min-width: 0; }
-.ms-slide { grid-area: 1 / 1; min-width: 0; display: flex; align-items: center; justify-content: center; padding: 14px 12px;
-  visibility: hidden; opacity: 0; transform: translateX(100%);
-  transition: transform .42s cubic-bezier(.2,.7,.2,1), opacity .42s ease, visibility 0s linear .42s; }
-.ms-slide.is-on { visibility: visible; opacity: 1; transform: none;
-  transition: transform .42s cubic-bezier(.2,.7,.2,1), opacity .42s ease, visibility 0s; }
-.ms-slide math { font-size: 26px; color: var(--ink); margin: 0 !important; overflow: hidden; max-width: 100%; }
-
-.ms-slide math * { margin: revert; padding: revert; }
-.ms-box.m-sys math { font-family: math; }
-.ms-box.m-kk math { font-family: "Kkakdugi Drafting", math; font-weight: 300; }
-
-.ms-pcb { position: relative; padding: 0; }
-.ms-pcbbox { position: absolute; inset: 10px; display: flex; align-items: center; justify-content: center; }
-
-.ms-pcbbox svg { height: 100%; width: auto; max-width: 100%; display: block; overflow: hidden; }
-
-.ms-pcbbox { --pcb-pad: #d4af37; --pcb-cu: var(--line); --pcb-silk: var(--ink); }
-:root[data-theme="plotter"] .ms-pcbbox { --pcb-pad: #c3c7cc; }
-
-:root[data-theme="plotter"] .ms-pcbbox .pcb-pad > :not(.pcb-hole):not(circle) { stroke: #5f656c; stroke-width: .35; }
-:root[data-theme="cad"] .ms-pcbbox { --pcb-pad: #e8423f; --pcb-cu: #8e1c1c; --pcb-silk: #ffd93b; }
-.ms-pcbbox .pcb-edge { stroke: var(--ink-soft); fill: none; }
-.ms-pcbbox .pcb-cu-top, .ms-pcbbox .pcb-cu-bot { stroke: var(--pcb-cu); fill: none; opacity: .9; }
-.ms-pcbbox .pcb-pour { fill: var(--pcb-cu); stroke: none; opacity: .35; }
-.ms-pcbbox .pcb-pad { fill: var(--pcb-pad); stroke: none; }
-.ms-pcbbox .pcb-pad .pcb-hole, .ms-pcbbox .pcb-pad circle { fill: var(--surface); }
-.ms-pcbbox .pcb-silk { stroke: var(--pcb-silk); fill: none; }
-.ms-pcbbox .pcb-silk-t { fill: var(--pcb-silk); stroke: none; font-family: "Kkakdugi Drafting", sans-serif; font-weight: 400; }
-.ms-box.m-sys .ms-pcbbox .pcb-silk-t { font-family: sans-serif; }
-.ms-nav { width: 44px; height: 44px; border: 1px solid var(--line); background: var(--surface); color: var(--ink);
-  font-family: "Kkakdugi Drafting", sans-serif; font-size: 1.6rem; line-height: 1; cursor: pointer; margin-top: 24px; }
-.ms-nav:hover { border-color: var(--ink); }
-.ms-nav:focus-visible, .ms-topics button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.ms-foot { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 12px; }
-.ms-label { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 700; font-size: 1rem; color: var(--accent); min-height: 1.4em; }
-.ms-dots { display: flex; gap: 8px; }
-.ms-dots i { width: 8px; height: 8px; border: 1px solid var(--ink-soft); }
-.ms-dots i.on { background: var(--ink); border-color: var(--ink); }
-@media (max-width: 640px) {
-  .ms-stage { grid-template-columns: 34px minmax(0, 1fr) 34px; gap: 6px; }
-  .ms-nav { width: 34px; height: 44px; font-size: 1.3rem; margin-top: 0; }
-  .ms-slide math { font-size: 20px; }
-  .ms-box { min-height: 170px; }
-}
-@media (prefers-reduced-motion: reduce) { .ms-slide, .ms-slide.is-on { transition: none; } }
-
-.mathshow { margin: 48px 0 56px; }
-.ms-topics { margin: 14px 0 14px; }
-.ms-stage { display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; align-items: center; gap: 8px; }
-.ms-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 14px; min-width: 0; }
-.ms-col { min-width: 0; display: flex; flex-direction: column; }
-.ms-cap { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300; font-size: .92rem; color: var(--ink-soft); margin: 0 0 6px; }
-.ms-box { flex: 1; border: 1px solid var(--line); background: var(--surface); overflow: hidden; touch-action: pan-y; min-height: 230px;
-  display: grid; }
-.ms-slides { display: grid; min-width: 0; }
-.ms-slide { grid-area: 1 / 1; min-width: 0; display: flex; align-items: center; justify-content: center; padding: 14px 12px;
-  visibility: hidden; opacity: 0; transform: translateX(100%);
-  transition: transform .42s cubic-bezier(.2,.7,.2,1), opacity .42s ease, visibility 0s linear .42s; }
-.ms-slide.is-on { visibility: visible; opacity: 1; transform: none;
-  transition: transform .42s cubic-bezier(.2,.7,.2,1), opacity .42s ease, visibility 0s; }
-.ms-slide math { font-size: 26px; color: var(--ink); margin: 0 !important; overflow: hidden; max-width: 100%; }
-
-.ms-slide math * { margin: revert; padding: revert; }
-.ms-box.m-sys math { font-family: math; }
-.ms-box.m-kk math { font-family: "Kkakdugi Drafting", math; font-weight: 300; }
-
-.ms-pcb { position: relative; padding: 0; }
-.ms-pcbbox { position: absolute; inset: 10px; display: flex; align-items: center; justify-content: center; }
-
-.ms-pcbbox svg { height: 100%; width: auto; max-width: 100%; display: block; overflow: hidden; }
-
-.ms-pcbbox { --pcb-bg: #0f2f78; --pcb-pour: #2b57b8; --pcb-pour-op: .55; --pcb-cu: #7fa8f0; --pcb-cu2: #7fa8f0;
-  --pcb-pad: #d4af37; --pcb-hole: #081a45; --pcb-silk: #f4f6fa; --pcb-edge: #f4f6fa; }
-:root[data-theme="plotter"] .ms-pcbbox { --pcb-bg: transparent; --pcb-pour: #000; --pcb-pour-op: .1; --pcb-cu: #000; --pcb-cu2: #000;
-  --pcb-pad: #000; --pcb-hole: var(--surface); --pcb-silk: #000; --pcb-edge: #000; }
-:root[data-theme="cad"] .ms-pcbbox { --pcb-bg: #000; --pcb-pour: #a01e1e; --pcb-pour-op: .4; --pcb-cu: #a01e1e; --pcb-cu2: #1f3fa6;
-  --pcb-pad: #35b64a; --pcb-hole: #000; --pcb-silk: #ffd93b; --pcb-edge: #ffd93b; }
-.ms-pcbbox svg { background: var(--pcb-bg); }
-.ms-pcbbox .pcb-edge { stroke: var(--pcb-edge); fill: none; }
-.ms-pcbbox .pcb-cu-top { stroke: var(--pcb-cu); fill: none; }
-.ms-pcbbox .pcb-cu-bot { stroke: var(--pcb-cu2); fill: none; }
-.ms-pcbbox .pcb-pour { fill: var(--pcb-pour); stroke: none; opacity: var(--pcb-pour-op); }
-.ms-pcbbox .pcb-pad { fill: var(--pcb-pad); stroke: none; }
-.ms-pcbbox .pcb-pad .pcb-hole, .ms-pcbbox .pcb-pad circle { fill: var(--pcb-hole); }
-.ms-pcbbox .pcb-silk { stroke: var(--pcb-silk); fill: none; }
-.ms-pcbbox .pcb-silk-t { fill: var(--pcb-silk); stroke: none; font-family: "Kkakdugi Drafting", sans-serif; font-weight: 400; }
-.ms-box.m-sys .ms-pcbbox .pcb-silk-t { font-family: sans-serif; }
-.ms-nav { width: 44px; height: 44px; border: 1px solid var(--line); background: var(--surface); color: var(--ink);
-  font-family: "Kkakdugi Drafting", sans-serif; font-size: 1.6rem; line-height: 1; cursor: pointer; margin-top: 24px; }
-.ms-nav:hover { border-color: var(--ink); }
-.ms-nav:focus-visible, .ms-topics button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.ms-foot { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 12px; }
-.ms-label { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 700; font-size: 1rem; color: var(--accent); min-height: 1.4em; }
-.ms-dots { display: flex; gap: 8px; }
-.ms-dots i { width: 8px; height: 8px; border: 1px solid var(--ink-soft); }
-.ms-dots i.on { background: var(--ink); border-color: var(--ink); }
-@media (max-width: 640px) {
-  .ms-stage { grid-template-columns: 34px minmax(0, 1fr) 34px; gap: 6px; }
-  .ms-nav { width: 34px; height: 44px; font-size: 1.3rem; margin-top: 0; }
-  .ms-slide math { font-size: 20px; }
-  .ms-box { min-height: 170px; }
-}
-@media (prefers-reduced-motion: reduce) { .ms-slide, .ms-slide.is-on { transition: none; } }
-
-.mathshow { margin: 48px 0 56px; }
-.ms-topics { margin: 14px 0 14px; }
-.ms-stage { display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; align-items: center; gap: 8px; }
-.ms-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 14px; min-width: 0; }
-.ms-col { min-width: 0; display: flex; flex-direction: column; }
-.ms-cap { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300; font-size: .92rem; color: var(--ink-soft); margin: 0 0 6px; }
-.ms-box { flex: 1; border: 1px solid var(--line); background: var(--surface); overflow: hidden; touch-action: pan-y; min-height: 230px;
-  display: grid; }
-.ms-slides { display: grid; min-width: 0; }
-.ms-slide { grid-area: 1 / 1; min-width: 0; display: flex; align-items: center; justify-content: center; padding: 14px 12px;
-  visibility: hidden; opacity: 0; transform: translateX(100%);
-  transition: transform .42s cubic-bezier(.2,.7,.2,1), opacity .42s ease, visibility 0s linear .42s; }
-.ms-slide.is-on { visibility: visible; opacity: 1; transform: none;
-  transition: transform .42s cubic-bezier(.2,.7,.2,1), opacity .42s ease, visibility 0s; }
-.ms-slide math { font-size: 26px; color: var(--ink); margin: 0 !important; overflow: hidden; max-width: 100%; }
-
-.ms-slide math * { margin: revert; padding: revert; }
-.ms-box.m-sys math { font-family: math; }
-.ms-box.m-kk math { font-family: "Kkakdugi Drafting", math; font-weight: 300; }
-
-.ms-pcb { position: relative; padding: 0; }
-.ms-pcbbox { position: absolute; inset: 10px; display: flex; align-items: center; justify-content: center; }
-
-.ms-pcbbox svg { height: 100%; width: auto; max-width: 100%; display: block; overflow: hidden; }
-
-.ms-pcbbox { --pcb-bg: #0f2f78; --pcb-pour: #2b57b8; --pcb-pour-op: .55; --pcb-cu: #7fa8f0; --pcb-cu2: #7fa8f0;
-  --pcb-pad: #d4af37; --pcb-hole: #081a45; --pcb-silk: #f4f6fa; --pcb-edge: #f4f6fa; }
-:root[data-theme="plotter"] .ms-pcbbox { --pcb-bg: transparent; --pcb-pour: #000; --pcb-pour-op: .1; --pcb-cu: #000; --pcb-cu2: #000;
-  --pcb-pad: #000; --pcb-hole: var(--surface); --pcb-silk: #000; --pcb-edge: #000; }
-:root[data-theme="cad"] .ms-pcbbox { --pcb-bg: #000; --pcb-pour: #a01e1e; --pcb-pour-op: .4; --pcb-cu: #a01e1e; --pcb-cu2: #1f3fa6;
-  --pcb-pad: #35b64a; --pcb-hole: #000; --pcb-silk: #ffd93b; --pcb-edge: #ffd93b; }
-.ms-pcbbox svg { background: var(--pcb-bg); }
-.ms-pcbbox .pcb-edge { stroke: var(--pcb-edge); fill: none; }
-.ms-pcbbox .pcb-cu-top { stroke: var(--pcb-cu); fill: none; }
-.ms-pcbbox .pcb-cu-bot { stroke: var(--pcb-cu2); fill: none; }
-.ms-pcbbox .pcb-pour { fill: var(--pcb-pour); stroke: none; opacity: var(--pcb-pour-op); }
-.ms-pcbbox .pcb-pad { fill: var(--pcb-pad); stroke: none; }
-.ms-pcbbox .pcb-pad .pcb-hole, .ms-pcbbox .pcb-pad circle { fill: var(--pcb-hole); }
-.ms-pcbbox .pcb-silk { stroke: var(--pcb-silk); fill: none; }
-.ms-pcbbox .pcb-silk-t { fill: var(--pcb-silk); stroke: none; font-family: "Kkakdugi Drafting", sans-serif; font-weight: 400; }
-
-:root[data-theme="plotter"] .ms-pcbbox .pcb-silk-t { stroke: var(--surface); stroke-width: 1.6; stroke-linejoin: round; paint-order: stroke; }
-.ms-box.m-sys .ms-pcbbox .pcb-silk-t { font-family: sans-serif; }
-.ms-nav { width: 44px; height: 44px; border: 1px solid var(--line); background: var(--surface); color: var(--ink);
-  font-family: "Kkakdugi Drafting", sans-serif; font-size: 1.6rem; line-height: 1; cursor: pointer; margin-top: 24px; }
-.ms-nav:hover { border-color: var(--ink); }
-.ms-nav:focus-visible, .ms-topics button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.ms-foot { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 12px; }
-.ms-label { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 700; font-size: 1rem; color: var(--accent); min-height: 1.4em; }
-.ms-dots { display: flex; gap: 8px; }
-.ms-dots i { width: 8px; height: 8px; border: 1px solid var(--ink-soft); }
-.ms-dots i.on { background: var(--ink); border-color: var(--ink); }
-@media (max-width: 640px) {
-  .ms-stage { grid-template-columns: 34px minmax(0, 1fr) 34px; gap: 6px; }
-  .ms-nav { width: 34px; height: 44px; font-size: 1.3rem; margin-top: 0; }
-  .ms-slide math { font-size: 20px; }
-  .ms-box { min-height: 170px; }
-}
-@media (prefers-reduced-motion: reduce) { .ms-slide, .ms-slide.is-on { transition: none; } }
-
-.mathshow { margin: 48px 0 56px; }
-.ms-topics { margin: 14px 0 14px; }
-.ms-stage { display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; align-items: center; gap: 8px; }
-.ms-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 14px; min-width: 0; }
-.ms-col { min-width: 0; display: flex; flex-direction: column; }
-.ms-cap { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300; font-size: .92rem; color: var(--ink-soft); margin: 0 0 6px; }
-.ms-box { flex: 1; border: 1px solid var(--line); background: var(--surface); overflow: hidden; touch-action: pan-y; min-height: 230px;
-  display: grid; }
-.ms-slides { display: grid; min-width: 0; }
-.ms-slide { grid-area: 1 / 1; min-width: 0; display: flex; align-items: center; justify-content: center; padding: 14px 12px;
-  visibility: hidden; opacity: 0; transform: translateX(100%);
-  transition: transform .42s cubic-bezier(.2,.7,.2,1), opacity .42s ease, visibility 0s linear .42s; }
-.ms-slide.is-on { visibility: visible; opacity: 1; transform: none;
-  transition: transform .42s cubic-bezier(.2,.7,.2,1), opacity .42s ease, visibility 0s; }
-.ms-slide math { font-size: 26px; color: var(--ink); margin: 0 !important; overflow: hidden; max-width: 100%; }
-
-.ms-slide math * { margin: revert; padding: revert; }
-.ms-box.m-sys math { font-family: math; }
-.ms-box.m-kk math { font-family: "Kkakdugi Drafting", math; font-weight: 300; }
-
-.ms-pcb { position: relative; padding: 0; }
-.ms-pcbbox { position: absolute; inset: 10px; display: flex; align-items: center; justify-content: center; }
-
-.ms-pcbbox svg { height: 100%; width: auto; max-width: 100%; display: block; overflow: hidden; }
-
-.ms-pcbbox { --pcb-bg: #0f2f78; --pcb-pour: #2b57b8; --pcb-pour-op: .55; --pcb-cu: #7fa8f0; --pcb-cu2: #7fa8f0;
-  --pcb-pad: #d4af37; --pcb-hole: #081a45; --pcb-silk: #f4f6fa; --pcb-edge: #f4f6fa; }
-:root[data-theme="plotter"] .ms-pcbbox { --pcb-bg: transparent; --pcb-pour: #000; --pcb-pour-op: .1; --pcb-cu: #000; --pcb-cu2: #000;
-  --pcb-pad: #000; --pcb-hole: var(--surface); --pcb-silk: #000; --pcb-edge: #000; }
-:root[data-theme="cad"] .ms-pcbbox { --pcb-bg: #000; --pcb-pour: #a01e1e; --pcb-pour-op: .4; --pcb-cu: #a01e1e; --pcb-cu2: #1f3fa6;
-  --pcb-pad: #35b64a; --pcb-hole: #000; --pcb-silk: #ffd93b; --pcb-edge: #ffd93b; }
-.ms-pcbbox svg { background: var(--pcb-bg); }
-.ms-pcbbox .pcb-edge { stroke: var(--pcb-edge); fill: none; }
-.ms-pcbbox .pcb-cu-top { stroke: var(--pcb-cu); fill: none; }
-.ms-pcbbox .pcb-cu-bot { stroke: var(--pcb-cu2); fill: none; }
-.ms-pcbbox .pcb-pour { fill: var(--pcb-pour); stroke: none; opacity: var(--pcb-pour-op); }
-.ms-pcbbox .pcb-pad { fill: var(--pcb-pad); stroke: none; }
-.ms-pcbbox .pcb-pad .pcb-hole, .ms-pcbbox .pcb-pad circle, .ms-pcbbox .pcb-pad.pcb-hole { fill: var(--pcb-hole); }
-
-.ms-pcbbox .pcb-pour-bot, .ms-pcbbox .pcb-cu-bot { display: none; }
-:root[data-theme="cad"] .ms-pcbbox .pcb-cu-bot { display: inline; }
-.ms-pcbbox .pcb-silk { stroke: var(--pcb-silk); fill: none; }
-.ms-pcbbox .pcb-silk-t { fill: var(--pcb-silk); stroke: none; font-family: "Kkakdugi Drafting", sans-serif; font-weight: 400; }
-
-:root[data-theme="plotter"] .ms-pcbbox .pcb-silk-t { stroke: var(--surface); stroke-width: 1.6; stroke-linejoin: round; paint-order: stroke; }
-.ms-box.m-sys .ms-pcbbox .pcb-silk-t { font-family: sans-serif; }
-.ms-nav { width: 44px; height: 44px; border: 1px solid var(--line); background: var(--surface); color: var(--ink);
-  font-family: "Kkakdugi Drafting", sans-serif; font-size: 1.6rem; line-height: 1; cursor: pointer; margin-top: 24px; }
-.ms-nav:hover { border-color: var(--ink); }
-.ms-nav:focus-visible, .ms-topics button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.ms-foot { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 12px; }
-.ms-label { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 700; font-size: 1rem; color: var(--accent); min-height: 1.4em; }
-.ms-dots { display: flex; gap: 8px; }
-.ms-dots i { width: 8px; height: 8px; border: 1px solid var(--ink-soft); }
-.ms-dots i.on { background: var(--ink); border-color: var(--ink); }
-@media (max-width: 640px) {
-  .ms-stage { grid-template-columns: 34px minmax(0, 1fr) 34px; gap: 6px; }
-  .ms-nav { width: 34px; height: 44px; font-size: 1.3rem; margin-top: 0; }
-  .ms-slide math { font-size: 20px; }
-  .ms-box { min-height: 170px; }
-}
-@media (prefers-reduced-motion: reduce) { .ms-slide, .ms-slide.is-on { transition: none; } }
-
-.mathshow { margin: 48px 0 56px; }
-.ms-topics { margin: 14px 0 14px; }
-.ms-stage { display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; align-items: center; gap: 8px; }
-.ms-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 14px; min-width: 0; }
-.ms-col { min-width: 0; display: flex; flex-direction: column; }
-.ms-cap { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300; font-size: .92rem; color: var(--ink-soft); margin: 0 0 6px; }
-.ms-box { flex: 1; border: 1px solid var(--line); background: var(--surface); overflow: hidden; touch-action: pan-y; min-height: 230px;
-  display: grid; }
-.ms-slides { display: grid; min-width: 0; }
-.ms-slide { grid-area: 1 / 1; min-width: 0; display: flex; align-items: center; justify-content: center; padding: 14px 12px;
-  visibility: hidden; opacity: 0; transform: translateX(100%);
-  transition: transform .42s cubic-bezier(.2,.7,.2,1), opacity .42s ease, visibility 0s linear .42s; }
-.ms-slide.is-on { visibility: visible; opacity: 1; transform: none;
-  transition: transform .42s cubic-bezier(.2,.7,.2,1), opacity .42s ease, visibility 0s; }
-.ms-slide math { font-size: 26px; color: var(--ink); margin: 0 !important; overflow: hidden; max-width: 100%; }
-
-.ms-slide math * { margin: revert; padding: revert; }
-.ms-box.m-sys math { font-family: math; }
-.ms-box.m-kk math { font-family: "Kkakdugi Drafting", math; font-weight: 300; }
-
-.ms-pcb { position: relative; padding: 0; }
-.ms-pcbbox { position: absolute; inset: 10px; display: flex; align-items: center; justify-content: center; }
-
-.ms-pcbbox svg { height: 100%; width: auto; max-width: 100%; display: block; overflow: hidden; }
-
-.ms-pcbbox { --pcb-bg: #0f2f78; --pcb-pour: #2b57b8; --pcb-pour-op: .55; --pcb-cu: #7fa8f0; --pcb-cu2: #7fa8f0;
-  --pcb-pad: #d4af37; --pcb-hole: #081a45; --pcb-silk: #f4f6fa; --pcb-edge: #f4f6fa; }
-
-:root[data-theme="plotter"] .ms-pcbbox { --pcb-bg: #fff; --pcb-pour: #000; --pcb-pour-op: 0; --pcb-cu: #000; --pcb-cu2: #000;
-  --pcb-pad: #000; --pcb-hole: #fff; --pcb-silk: #000; --pcb-edge: #000; }
-:root[data-theme="cad"] .ms-pcbbox { --pcb-bg: #000; --pcb-pour: #a01e1e; --pcb-pour-op: .4; --pcb-cu: #a01e1e; --pcb-cu2: #1f3fa6;
-  --pcb-pad: #35b64a; --pcb-hole: #000; --pcb-silk: #ffd93b; --pcb-edge: #ffd93b; }
-.ms-pcbbox svg { background: var(--pcb-bg); }
-.ms-pcbbox .pcb-edge { stroke: var(--pcb-edge); fill: none; }
-.ms-pcbbox .pcb-cu-top { stroke: var(--pcb-cu); fill: none; }
-.ms-pcbbox .pcb-cu-bot { stroke: var(--pcb-cu2); fill: none; }
-.ms-pcbbox .pcb-pour { fill: var(--pcb-pour); stroke: none; opacity: var(--pcb-pour-op); }
-.ms-pcbbox .pcb-pad { fill: var(--pcb-pad); stroke: none; }
-.ms-pcbbox .pcb-pad .pcb-hole, .ms-pcbbox .pcb-pad circle, .ms-pcbbox .pcb-pad.pcb-hole { fill: var(--pcb-hole); }
-
-.ms-pcbbox .pcb-pour-bot, .ms-pcbbox .pcb-cu-bot { display: none; }
-:root[data-theme="cad"] .ms-pcbbox .pcb-cu-bot { display: inline; }
-.ms-pcbbox .pcb-silk { stroke: var(--pcb-silk); fill: none; }
-.ms-pcbbox .pcb-silk-t { fill: var(--pcb-silk); stroke: none; font-family: "Kkakdugi Drafting", sans-serif; font-weight: 400; }
-
-:root[data-theme="plotter"] .ms-pcbbox .pcb-silk-t { stroke: #fff; stroke-width: 1.6; stroke-linejoin: round; paint-order: stroke; }
-.ms-box.m-sys .ms-pcbbox .pcb-silk-t { font-family: sans-serif; }
-.ms-nav { width: 44px; height: 44px; border: 1px solid var(--line); background: var(--surface); color: var(--ink);
-  font-family: "Kkakdugi Drafting", sans-serif; font-size: 1.6rem; line-height: 1; cursor: pointer; margin-top: 24px; }
-.ms-nav:hover { border-color: var(--ink); }
-.ms-nav:focus-visible, .ms-topics button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.ms-foot { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 12px; }
-.ms-label { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 700; font-size: 1rem; color: var(--accent); min-height: 1.4em; }
-.ms-dots { display: flex; gap: 8px; }
-.ms-dots i { width: 8px; height: 8px; border: 1px solid var(--ink-soft); }
-.ms-dots i.on { background: var(--ink); border-color: var(--ink); }
-@media (max-width: 640px) {
-  .ms-stage { grid-template-columns: 34px minmax(0, 1fr) 34px; gap: 6px; }
-  .ms-nav { width: 34px; height: 44px; font-size: 1.3rem; margin-top: 0; }
-  .ms-slide math { font-size: 20px; }
-  .ms-box { min-height: 170px; }
-}
-@media (prefers-reduced-motion: reduce) { .ms-slide, .ms-slide.is-on { transition: none; } }
-
-.mathshow { margin: 48px 0 56px; }
-.ms-topics { margin: 14px 0 14px; }
-.ms-stage { display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; align-items: center; gap: 8px; }
-.ms-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 14px; min-width: 0; }
-.ms-col { min-width: 0; display: flex; flex-direction: column; }
-.ms-cap { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 300; font-size: .92rem; color: var(--ink-soft); margin: 0 0 6px; }
-.ms-box { flex: 1; border: 1px solid var(--line); background: var(--surface); overflow: hidden; touch-action: pan-y; min-height: 230px;
-  display: grid; }
-.ms-slides { display: grid; min-width: 0; }
-.ms-slide { grid-area: 1 / 1; min-width: 0; display: flex; align-items: center; justify-content: center; padding: 14px 12px;
-  visibility: hidden; opacity: 0; transform: translateX(100%);
-  transition: transform .42s cubic-bezier(.2,.7,.2,1), opacity .42s ease, visibility 0s linear .42s; }
-.ms-slide.is-on { visibility: visible; opacity: 1; transform: none;
-  transition: transform .42s cubic-bezier(.2,.7,.2,1), opacity .42s ease, visibility 0s; }
-.ms-slide math { font-size: 26px; color: var(--ink); margin: 0 !important; overflow: hidden; max-width: 100%; }
-
-.ms-slide math * { margin: revert; padding: revert; }
-.ms-box.m-sys math { font-family: math; }
 .ms-box.m-kk math { font-family: "Kkakdugi Drafting", math; font-weight: 300; font-size: 29px; }   
 
 .ms-pcb { position: relative; padding: 0; }
@@ -1099,22 +685,25 @@ h2 u { text-decoration-thickness: 2px; text-underline-offset: .2em; }
 
 .ms-pcbbox .pcb-pour-bot, .ms-pcbbox .pcb-cu-bot { display: none; }
 :root[data-theme="cad"] .ms-pcbbox .pcb-cu-bot { display: inline; }
+.ms-pcbbox .pcb-npth { fill: var(--pcb-hole); stroke: none; }   
 .ms-pcbbox .pcb-silk { stroke: var(--pcb-silk); fill: none; }
 .ms-pcbbox .pcb-silk-t { fill: var(--pcb-silk); stroke: none; font-family: "Kkakdugi Drafting", sans-serif; font-weight: 400; }
 
+:root[data-theme="plotter"] .ms-pcbbox .pcb-pad .pcb-hole, :root[data-theme="plotter"] .ms-pcbbox .pcb-pad circle,
+:root[data-theme="plotter"] .ms-pcbbox .pcb-pad.pcb-hole, :root[data-theme="plotter"] .ms-pcbbox .pcb-npth { stroke: #000; stroke-width: .5; }
 :root[data-theme="plotter"] .ms-pcbbox .pcb-silk-t { stroke: #fff; stroke-width: 1.6; stroke-linejoin: round; paint-order: stroke; }
-.ms-box.m-sys .ms-pcbbox .pcb-silk-t { font-family: sans-serif; }
 .ms-nav { width: 44px; height: 44px; border: 1px solid var(--line); background: var(--surface); color: var(--ink);
   font-family: "Kkakdugi Drafting", sans-serif; font-size: 1.6rem; line-height: 1; cursor: pointer; margin-top: 24px; }
 .ms-nav:hover { border-color: var(--ink); }
 .ms-nav:focus-visible, .ms-topics button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.ms-foot { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 12px; }
+.ms-foot { max-width: 700px; margin-left: auto; margin-right: auto; display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 12px; }
 .ms-label { font-family: "Kkakdugi Drafting", sans-serif; font-weight: 700; font-size: 1rem; color: var(--accent); min-height: 1.4em; }
 .ms-dots { display: flex; gap: 8px; }
 .ms-dots i { width: 8px; height: 8px; border: 1px solid var(--ink-soft); }
 .ms-dots i.on { background: var(--ink); border-color: var(--ink); }
 @media (max-width: 640px) {
   .ms-stage { grid-template-columns: 34px minmax(0, 1fr) 34px; gap: 6px; }
+  .ms-topics { padding-left: 40px; }
   .ms-nav { width: 34px; height: 44px; font-size: 1.3rem; margin-top: 0; }
   .ms-slide math { font-size: 20px; }
   .ms-box.m-kk math { font-size: 22.5px; }
@@ -1139,7 +728,7 @@ h2 u { text-decoration-thickness: 2px; text-underline-offset: .2em; }
 설계자에 의해 만들어진<br>
 설계자를 위한 글꼴</p>
       <div class="hero-cta">
-        <a class="btn primary" href="https://github.com/dynamic-potato/kkakdugi-drafting/releases/latest" target="_blank" rel="noopener" data-copy="hero.cta1">TTF 다운로드</a>
+        <a class="btn primary" href="https://github.com/dynamic-potato/kkakdugi-drafting/releases/latest" target="_blank" rel="noopener noreferrer" data-copy="hero.cta1">TTF 다운로드</a>
         <a class="btn" href="#tester-sec" data-copy="hero.cta2">직접 입력해보기</a>
       </div>
       <div class="hero-c-foot">
@@ -1167,6 +756,7 @@ OFL 1.1<br>
 </div>
 
 <section class="story-sec">
+  <p class="mobile-note" data-copy="story.mobile">이 페이지는 데스크톱/태블릿 화면에서 더욱 멋지게 보인답니다. 한번 확인해보세요.</p>
   <p class="story-big" data-copy="story.big">15년간 도면을 그리며, 늘 아쉬웠던 한 가지.<br>
 도면 속 <strong>한글</strong>이었습니다.<br>
 <strong>도면을 위한 한글 글꼴, 깍두기 도면체</strong>입니다.</p>
@@ -1230,32 +820,8 @@ OFL 1.1<br>
     <button type="button" class="ms-nav ms-prev" aria-label="이전 예시">‹</button>
     <div class="ms-cols" aria-live="polite">
     <div class="ms-col">
-      <div class="ms-cap">깍두기 도면체</div>
       <div class="ms-box m-kk"><div class="ms-slides">
         <div class="ms-slide ms-pcb is-on" data-topic="0" data-label="PCB 실크"><div class="ms-pcbbox" data-pcb="kk"></div></div>
-        <div class="ms-slide" data-topic="0" data-label="논리 게이트"><math display="block"><mi>Y</mi><mo>=</mo><mo>¬</mo><mrow><mo>(</mo><mi>A</mi><mo>∧</mo><mi>B</mi><mo>)</mo></mrow><mo>=</mo><mi>A</mi><mo>⊼</mo><mi>B</mi><mspace width="1em"/><mi>A</mi><mo>⊻</mo><mi>B</mi></math></div>
-        <div class="ms-slide" data-topic="0" data-label="전원 기호"><math display="block"><mtext>⏻ ⏼ ⏽ ⭘ ⏾</mtext><mspace width="1em"/><mtext>⚠ ⚡ ↯</mtext></math></div>
-        <div class="ms-slide" data-topic="0" data-label="직류 전원"><math display="block"><msub><mi>V</mi><mi>DC</mi></msub><mo>=</mo><mn>24</mn><mspace width="0.25em"/><mtext>V ⎓</mtext><mspace width="1em"/><mtext>⏚</mtext></math></div>
-        <div class="ms-slide" data-topic="0" data-label="임피던스"><math display="block"><mi>Z</mi><mo>=</mo><mi>R</mi><mo>+</mo><mi>j</mi><mrow><mo>(</mo><mi>ω</mi><mi>L</mi><mo>−</mo><mfrac><mn>1</mn><mrow><mi>ω</mi><mi>C</mi></mrow></mfrac><mo>)</mo></mrow><mspace width="0.25em"/><mtext>Ω</mtext></math></div>
-        <div class="ms-slide" data-topic="0" data-label="RC 충전"><math display="block"><msub><mi>v</mi><mi>C</mi></msub><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo><msub><mi>V</mi><mi>s</mi></msub><mrow><mo>(</mo><mn>1</mn><mo>−</mo><msup><mi>e</mi><mrow><mo>−</mo><mi>t</mi><mo>/</mo><mi>τ</mi></mrow></msup><mo>)</mo></mrow><mo>,</mo><mspace width="0.5em"/><mi>τ</mi><mo>=</mo><mi>R</mi><mi>C</mi></math></div>
-        <div class="ms-slide" data-topic="1" data-label="근의 공식"><math display="block"><mi>x</mi><mo>=</mo><mfrac><mrow><mo>−</mo><mi>b</mi><mo>±</mo><msqrt><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>a</mi><mi>c</mi></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></math></div>
-        <div class="ms-slide" data-topic="1" data-label="근호 중첩"><math display="block"><msqrt><mn>1</mn><mo>+</mo><msqrt><mn>1</mn><mo>+</mo><msqrt><mn>1</mn><mo>+</mo><mi>x</mi></msqrt></msqrt></msqrt><mo>≠</mo><mroot><mi>y</mi><mn>3</mn></mroot></math></div>
-        <div class="ms-slide" data-topic="1" data-label="열 방정식"><math display="block"><mrow><mo>(</mo><mfrac><mrow><mi>∂</mi><mi>u</mi></mrow><mrow><mi>∂</mi><mi>t</mi></mrow></mfrac><mo>)</mo></mrow><mo>=</mo><mi>α</mi><msup><mi>∇</mi><mn>2</mn></msup><mi>u</mi></math></div>
-        <div class="ms-slide" data-topic="1" data-label="경우 나누기"><math display="block"><mi>f</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>=</mo><mrow><mo>{</mo><mtable><mtr><mtd><mn>0</mn></mtd><mtd><mi>x</mi><mo>&lt;</mo><mn>0</mn></mtd></mtr><mtr><mtd><mi>x</mi></mtd><mtd><mi>x</mi><mo>≥</mo><mn>0</mn></mtd></mtr></mtable></mrow></math></div>
-        <div class="ms-slide" data-topic="1" data-label="극한"><math display="block"><munder><mo movablelimits="false">lim</mo><mrow><mi>n</mi><mo>→</mo><mi mathvariant="normal">∞</mi></mrow></munder><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>x</mi><mi>i</mi></msub><mo>=</mo><mi>n</mi><mover><mi>x</mi><mo>¯</mo></mover></math></div>
-        <div class="ms-slide" data-topic="1" data-label="폐곡선 적분"><math display="block"><msub><mo>∮</mo><mi>C</mi></msub><mi>𝐄</mi><mo>⋅</mo><mi>d</mi><mi>𝐥</mi><mo>=</mo><mo>−</mo><mfrac><mrow><mi>d</mi><msub><mi>Φ</mi><mi>B</mi></msub></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac></math></div>
-        <div class="ms-slide" data-topic="1" data-label="행렬"><math display="block"><mrow><mo>[</mo><mtable><mtr><mtd><msub><mi>k</mi><mn>11</mn></msub></mtd><mtd><msub><mi>k</mi><mn>12</mn></msub></mtd></mtr><mtr><mtd><msub><mi>k</mi><mn>21</mn></msub></mtd><mtd><msub><mi>k</mi><mn>22</mn></msub></mtd></mtr></mtable><mo>]</mo></mrow><mrow><mo>{</mo><mtable><mtr><mtd><msub><mover><mi>u</mi><mo>→</mo></mover><mn>1</mn></msub></mtd></mtr><mtr><mtd><msub><mover><mi>u</mi><mo>→</mo></mover><mn>2</mn></msub></mtd></mtr></mtable><mo>}</mo></mrow><mo>=</mo><mrow><mo>{</mo><mtable><mtr><mtd><msub><mover><mi>F</mi><mo>→</mo></mover><mn>1</mn></msub></mtd></mtr><mtr><mtd><msub><mover><mi>F</mi><mo>→</mo></mover><mn>2</mn></msub></mtd></mtr></mtable><mo>}</mo></mrow></math></div>
-        <div class="ms-slide" data-topic="2" data-label="분자"><math display="block"><msub><mi mathvariant="normal">H</mi><mn>2</mn></msub><mi mathvariant="normal">O</mi><mo>,</mo><mi mathvariant="normal">C</mi><msub><mi mathvariant="normal">O</mi><mn>2</mn></msub><mo>,</mo><msub><mi mathvariant="normal">H</mi><mn>2</mn></msub><mi mathvariant="normal">S</mi><msub><mi mathvariant="normal">O</mi><mn>4</mn></msub><mo>,</mo><mi mathvariant="normal">Ca</mi><msub><mrow><mo>(</mo><mi mathvariant="normal">OH</mi><mo>)</mo></mrow><mn>2</mn></msub></math></div>
-        <div class="ms-slide" data-topic="2" data-label="이온"><math display="block"><mi mathvariant="normal">S</mi><msubsup><mi mathvariant="normal">O</mi><mn>4</mn><mrow><mn>2</mn><mo>−</mo></mrow></msubsup><mo>,</mo><msup><mi mathvariant="normal">Fe</mi><mrow><mn>3</mn><mo>+</mo></mrow></msup><mo>,</mo><mi mathvariant="normal">N</mi><msubsup><mi mathvariant="normal">H</mi><mn>4</mn><mo>+</mo></msubsup><mo>,</mo><msup><mi mathvariant="normal">Xe</mi><mo>+</mo></msup></math></div>
-        <div class="ms-slide" data-topic="2" data-label="평형"><math display="block"><msub><mi mathvariant="normal">N</mi><mn>2</mn></msub><mo>+</mo><mn>3</mn><msub><mi mathvariant="normal">H</mi><mn>2</mn></msub><mo>⇌</mo><mn>2</mn><mi mathvariant="normal">N</mi><msub><mi mathvariant="normal">H</mi><mn>3</mn></msub><mspace width="1em"/><mi>Δ</mi><mi>H</mi><mo>=</mo><mo>−</mo><mn>92</mn><mspace width="0.25em"/><mtext>kJ</mtext></math></div>
-        <div class="ms-slide" data-topic="2" data-label="광합성"><math display="block"><mn>6</mn><mi mathvariant="normal">C</mi><msub><mi mathvariant="normal">O</mi><mn>2</mn></msub><mo>+</mo><mn>6</mn><msub><mi mathvariant="normal">H</mi><mn>2</mn></msub><mi mathvariant="normal">O</mi><mo>→</mo><msub><mi mathvariant="normal">C</mi><mn>6</mn></msub><msub><mi mathvariant="normal">H</mi><mn>12</mn></msub><msub><mi mathvariant="normal">O</mi><mn>6</mn></msub><mo>+</mo><mn>6</mn><msub><mi mathvariant="normal">O</mi><mn>2</mn></msub></math></div>
-        <div class="ms-slide" data-topic="2" data-label="동위원소"><math display="block"><mmultiscripts><mi mathvariant="normal">U</mi><mprescripts/><mn>92</mn><mn>235</mn></mmultiscripts><mo>+</mo><mmultiscripts><mi mathvariant="normal">n</mi><mprescripts/><mn>0</mn><mn>1</mn></mmultiscripts><mo>→</mo><mmultiscripts><mi mathvariant="normal">Ba</mi><mprescripts/><mn>56</mn><mn>141</mn></mmultiscripts><mo>+</mo><mmultiscripts><mi mathvariant="normal">Kr</mi><mprescripts/><mn>36</mn><mn>92</mn></mmultiscripts><mo>+</mo><mn>3</mn><mmultiscripts><mi mathvariant="normal">n</mi><mprescripts/><mn>0</mn><mn>1</mn></mmultiscripts></math></div>
-      </div></div>
-    </div>
-    <div class="ms-col">
-      <div class="ms-cap">이 기기 기본 글꼴</div>
-      <div class="ms-box m-sys"><div class="ms-slides">
-        <div class="ms-slide ms-pcb is-on" data-topic="0" data-label="PCB 실크"><div class="ms-pcbbox" data-pcb="sys"></div></div>
         <div class="ms-slide" data-topic="0" data-label="논리 게이트"><math display="block"><mi>Y</mi><mo>=</mo><mo>¬</mo><mrow><mo>(</mo><mi>A</mi><mo>∧</mo><mi>B</mi><mo>)</mo></mrow><mo>=</mo><mi>A</mi><mo>⊼</mo><mi>B</mi><mspace width="1em"/><mi>A</mi><mo>⊻</mo><mi>B</mi></math></div>
         <div class="ms-slide" data-topic="0" data-label="전원 기호"><math display="block"><mtext>⏻ ⏼ ⏽ ⭘ ⏾</mtext><mspace width="1em"/><mtext>⚠ ⚡ ↯</mtext></math></div>
         <div class="ms-slide" data-topic="0" data-label="직류 전원"><math display="block"><msub><mi>V</mi><mi>DC</mi></msub><mo>=</mo><mn>24</mn><mspace width="0.25em"/><mtext>V ⎓</mtext><mspace width="1em"/><mtext>⏚</mtext></math></div>
@@ -1374,10 +940,6 @@ OFL 1.1<br>
   fetch("img/pcb_board.svg").then((r) => r.text()).then((t) => {
     root.querySelectorAll(".ms-pcbbox").forEach((el) => {
       el.innerHTML = t;
-      if (el.dataset.pcb === "sys") el.querySelectorAll("text").forEach((x) => {
-        x.removeAttribute("textLength");
-        x.removeAttribute("lengthAdjust");
-      });
     });
   }).catch(() => {
   });
@@ -1472,8 +1034,8 @@ OFL 1.1<br>
 깍두기 도면체는 6과 9 아래에 짧은 밑줄을 두어 어느 방향에서 보아도 어떤 것이 "육"이고 "구"인지 바로 구분할 수 있습니다.<br>
 회전 버튼으로 90°씩 돌려 보세요.</p>
     <div class="clr-wrap">
-      <figure class="clr-panel"><figcaption class="clr-tag" data-copy="compare.tagright">깍두기 도면체</figcaption><svg class="clr-svg clr-kk" viewBox="55 55 310 310" aria-hidden="true"><g class="clr-rot"></g></svg></figure>
-      <figure class="clr-panel"><figcaption class="clr-tag clr-sysname">시스템 글꼴</figcaption><svg class="clr-svg clr-sys" viewBox="55 55 310 310" aria-hidden="true"><g class="clr-rot"></g></svg></figure>
+      <figure class="clr-panel"><figcaption class="clr-tag" data-copy="compare.tagright">깍두기 도면체</figcaption><svg class="clr-svg clr-kk" viewBox="10 92 400 236" aria-hidden="true"><g class="clr-proj"><g class="clr-rot"></g></g></svg></figure>
+      <figure class="clr-panel"><figcaption class="clr-tag clr-sysname">시스템 글꼴</figcaption><svg class="clr-svg clr-sys" viewBox="10 92 400 236" aria-hidden="true"><g class="clr-proj"><g class="clr-rot"></g></g></svg></figure>
     </div>
     <div class="cmp-sets" id="clrSets">
       <button class="on" data-v="dim">치수</button><button data-v="pn">부품 번호</button>
@@ -1525,7 +1087,8 @@ OFL 1.1<br>
   <div class="inner">
     <div>
       <h3 data-copy="download.heading">다운로드</h3>
-      <p data-copy="download.link"><a href="https://github.com/dynamic-potato/kkakdugi-drafting/releases/latest" target="_blank" rel="noopener">GitHub 릴리스에서 TTF 받기</a></p>
+      <p data-copy="download.link"><a href="https://github.com/dynamic-potato/kkakdugi-drafting/releases/latest" target="_blank" rel="noopener noreferrer">GitHub 릴리스에서 TTF 받기</a></p>
+      <p data-copy="download.more"><a href="https://github.com/dynamic-potato/kkakdugi-drafting" target="_blank" rel="noopener noreferrer">깍두기 도면체 더 자세히 알아보기</a></p>
       <ul>
         <li data-copy="download.item1">깍두기 도면체 ExtraLight / Light / Regular / Bold</li>
       </ul>
@@ -1888,7 +1451,12 @@ if (cmp) {
     cmp.style.setProperty("--wipe", pct.toFixed(1) + "%");
   };
   const wrapChars = (el, t) => {
-    el.innerHTML = [...t].map((c) => `<span class="g">${c === " " ? "&nbsp;" : c}</span>`).join("");
+    el.replaceChildren(...[...t].map((c) => {
+      const s = document.createElement("span");
+      s.className = "g";
+      s.textContent = c === " " ? " " : c;
+      return s;
+    }));
   };
   const syncWidths = () => {
     const A = [...cmpA.querySelectorAll(".g")], B = [...cmpB.querySelectorAll(".g")];
@@ -2180,6 +1748,14 @@ function plainPaste(e) {
   document.execCommand("insertText", false, text);
 }
 tester.addEventListener("paste", plainPaste);
+tester.addEventListener("drop", (e) => {
+  const text = e.dataTransfer && e.dataTransfer.getData("text/plain");
+  e.preventDefault();
+  if (text) {
+    tester.focus();
+    document.execCommand("insertText", false, text);
+  }
+});
 const size = document.getElementById("size");
 const sizeval = document.getElementById("sizeval");
 const wbtns = [...document.querySelectorAll("#weights button")];
@@ -2242,49 +1818,128 @@ document.querySelectorAll(".glyphrow .row").forEach((row) => {
     ];
     return `<path class="ah" d="M${p.map((q) => q.join(" ")).join(" L")}Z"/>`;
   };
-  const DIM = `
-    <line x1="80" y1="160" x2="80" y2="250"/><line x1="340" y1="160" x2="340" y2="250"/>
-    <line x1="80" y1="230" x2="180" y2="230"/><line x1="240" y1="230" x2="340" y2="230"/>${AH(80, 230, 180)}${AH(340, 230, 0)}
-    <text x="210" y="228">6</text>`;
-  const PN = `
-    <text x="210" y="210" style="font-size:72px">09-060</text>`;
-  const views = { dim: DIM, pn: PN };
-  let mode = "dim", deg = 0;
+  const PLATE = `<path d="M100 150 H290 L320 180 V280 H130 A30 30 0 0 1 100 250 Z"/>`;
+  const CL = (cx, cy, horiz) => [[-40, -22], [-18, -15], [-11, 11], [15, 18], [22, 40]].map(([u0, u1]) => horiz ? `<line class="thin" x1="${cx + u0}" y1="${cy}" x2="${cx + u1}" y2="${cy}"/>` : `<line class="thin" x1="${cx}" y1="${cy + u0}" x2="${cx}" y2="${cy + u1}"/>`).join("");
+  const HOLE = `<circle cx="262" cy="228" r="24"/>`;
+  const CENTER = `<g class="dwg-center">${CL(262, 228, true)}${CL(262, 228, false)}</g>`;
+  const DIM = `<g class="dwg-geom">${PLATE}${HOLE}</g>` + CENTER + `<g class="dwg-dim">
+    <line class="thin" x1="100" y1="142" x2="100" y2="92"/><line class="thin" x1="320" y1="172" x2="320" y2="92"/>
+    <line class="thin" x1="100" y1="104" x2="320" y2="104"/>${AH(100, 104, 180)}${AH(320, 104, 0)}
+    <text x="210" y="78">9</text>
+    <line class="thin" x1="298" y1="150" x2="372" y2="150"/><line class="thin" x1="328" y1="280" x2="372" y2="280"/>
+    <line class="thin" x1="360" y1="150" x2="360" y2="280"/>${AH(360, 150, 270)}${AH(360, 280, 90)}
+    <text x="386" y="215" transform="rotate(-90 386 215)">6</text></g>`;
+  const PN = `<g class="dwg-note">
+    <line x1="72" y1="148" x2="72" y2="272"/><line x1="292" y1="148" x2="292" y2="272"/><line x1="350" y1="148" x2="350" y2="272"/>
+    <line x1="72" y1="165" x2="372" y2="165"/><line x1="72" y1="255" x2="372" y2="255"/>
+    <text x="182" y="211" style="font-size:58px">09-060</text></g>`;
+  const views = { dim: `<g transform="translate(-47 45)">${DIM}</g>`, pn: `<g transform="translate(-12 0)">${PN}</g>` };
+  const C = 210, PHI = -30 * Math.PI / 180, K = 0.58;
+  const a = Math.cos(PHI), b = K * Math.sin(PHI), c = -Math.sin(PHI), d = K * Math.cos(PHI);
+  let mode = "dim", deg = 0, shown = 0, anim = null;
   const groups = () => document.querySelectorAll(".clr-svg .clr-rot");
-  const draw = () => groups().forEach((g) => {
-    g.innerHTML = views[mode];
-    g.style.transform = `rotate(${deg}deg)`;
-  });
+  const mat = (v) => {
+    const r = v * Math.PI / 180, cr = Math.cos(r), sr = Math.sin(r);
+    const ra = cr, rb = sr, rc = -sr, rd = cr, re = C - (cr * C - sr * C), rf = C - (sr * C + cr * C);
+    const A = a * ra + c * rb, B = b * ra + d * rb, Cc = a * rc + c * rd, D = b * rc + d * rd;
+    const E = a * re + c * rf + (C - (a * C + c * C)), F = b * re + d * rf + (C - (b * C + d * C));
+    return `matrix(${[A, B, Cc, D, E, F].map((x) => x.toFixed(5)).join(" ")})`;
+  };
+  const setRot = (v) => {
+    shown = v;
+    const m = mat(v);
+    groups().forEach((g) => g.setAttribute("transform", m));
+  };
+  const draw = () => {
+    groups().forEach((g) => {
+      g.innerHTML = views[mode];
+    });
+    setRot(shown);
+  };
+  const ease = (t) => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+  const tween = (keys, ms) => {
+    if (anim) cancelAnimationFrame(anim);
+    const t0 = performance.now(), n = keys.length - 1;
+    const step = (now) => {
+      const u = Math.min(1, Math.max(0, (now - t0) / ms)), seg = Math.min(n - 1, Math.floor(u * n)), f = ease(u * n - seg);
+      setRot(keys[seg] + (keys[seg + 1] - keys[seg]) * f);
+      anim = u < 1 ? requestAnimationFrame(step) : null;
+    };
+    anim = requestAnimationFrame(step);
+  };
   const sets = document.getElementById("clrSets");
   if (!sets) return;
-  sets.querySelectorAll("button[data-v]").forEach((b) => b.addEventListener("click", () => {
-    sets.querySelectorAll("button[data-v]").forEach((x) => x.classList.toggle("on", x === b));
-    mode = b.dataset.v;
+  sets.querySelectorAll("button[data-v]").forEach((btn) => btn.addEventListener("click", () => {
+    sets.querySelectorAll("button[data-v]").forEach((x) => x.classList.toggle("on", x === btn));
+    mode = btn.dataset.v;
     draw();
   }));
-  let wiggles = [];
-  const stopWiggle = () => {
-    wiggles.forEach((a) => a.cancel());
-    wiggles = [];
-  };
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   document.getElementById("clrRot").addEventListener("click", () => {
-    stopWiggle();
+    const from = shown;
     deg += 90;
-    groups().forEach((g) => g.style.transform = `rotate(${deg}deg)`);
+    if (reduce) setRot(deg);
+    else tween([from, deg], 450);
     document.getElementById("clrDeg").textContent = `${deg % 360}°`;
   });
   draw();
   const clrWrap = document.querySelector(".clr-wrap");
-  if (clrWrap && "IntersectionObserver" in window && Element.prototype.animate && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  if (clrWrap && "IntersectionObserver" in window && !reduce) {
     const io3 = new IntersectionObserver((es) => {
       if (!es.some((e) => e.isIntersecting)) return;
       io3.disconnect();
       if (deg !== 0) return;
-      const k = [0, 12, -12, 12, -12, 0].map((a) => ({ transform: `rotate(${a}deg)` }));
-      wiggles = [...groups()].map((g) => g.animate(k, { duration: 1800, easing: "ease-in-out" }));
+      tween([0, 12, -12, 12, -12, 0], 1800);
     }, { threshold: 0.6 });
     io3.observe(clrWrap);
   }
+})();
+</script>
+<script>
+(function() {
+  const send = (name, data) => {
+    try {
+      if (window.umami) window.umami.track(name, data);
+    } catch (e) {
+    }
+  };
+  const seen = new Set();
+  const once = (name, data) => {
+    if (!seen.has(name)) {
+      seen.add(name);
+      send(name, data);
+    }
+  };
+  const label = (el) => (el.textContent || "").trim().replace(/\s+/g, " ").slice(0, 30);
+  document.addEventListener("click", (e) => {
+    const t = e.target.closest("button, a, .palette .row");
+    if (!t) return;
+    if (t.matches("[data-set-theme]")) send("테마 전환", { theme: t.dataset.setTheme });
+    else if (t.closest("#cmpSets")) send("구분성 표본", { set: label(t) });
+    else if (t.closest("#cmp2Langs")) send("정렬성 언어", { lang: label(t) });
+    else if (t.matches("#guideToggle")) once("정렬성 격자");
+    else if (t.matches("#clrRot")) once("명확성 회전");
+    else if (t.closest("#clrSets")) send("명확성 표본", { set: label(t) });
+    else if (t.closest("#weights")) send("테스터 굵기", { weight: t.dataset.w });
+    else if (t.closest("#mathshow .ms-topics")) send("다양한 분야 주제", { topic: label(t) });
+    else if (t.closest("#mathshow .ms-nav")) once("다양한 분야 넘김");
+    else if (t.closest(".palette .row")) once("팔레트 복사");
+    else if (t.matches('a[href*="/releases/latest"]')) send("TTF 다운로드", { where: t.closest("footer") ? "하단" : "상단" });
+    else if (t.matches('a[href="https://github.com/dynamic-potato/kkakdugi-drafting"]')) send("리포 링크");
+  }, true);
+  const cmp = document.getElementById("cmp");
+  if (cmp) cmp.addEventListener("pointerdown", () => once("구분성 슬라이더"), true);
+  const tester = document.getElementById("tester");
+  if (tester) tester.addEventListener("input", () => once("직접 입력"));
+  const size = document.getElementById("size");
+  if (size) size.addEventListener("input", () => once("테스터 크기"));
+  const lensEl = document.getElementById("lens");
+  if (lensEl) new MutationObserver(() => {
+    if (lensEl.classList.contains("on")) once("확대경");
+  }).observe(lensEl, { attributes: true, attributeFilter: ["class"] });
+  document.querySelectorAll("details.palette").forEach((d) => d.addEventListener("toggle", () => {
+    if (d.open) once(d.classList.contains("story-fold") ? "제작 노트 펼침" : "팔레트 펼침");
+  }));
 })();
 </script>
 </body>
