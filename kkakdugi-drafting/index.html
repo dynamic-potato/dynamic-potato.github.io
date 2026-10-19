@@ -661,7 +661,11 @@ h2 u { text-decoration-thickness: 2px; text-underline-offset: .2em; }
 .ms-slide math { font-size: 26px; color: var(--ink); margin: 0 !important; overflow: hidden; max-width: 100%; }
 
 .ms-slide math * { margin: revert; padding: revert; }
-.ms-box.m-kk math { font-family: "Kkakdugi Drafting", math; font-weight: 300; font-size: 29px; }   
+
+.ms-grid { font-family: "Kkakdugi Drafting", monospace; font-weight: 300; font-size: 30px; line-height: 1.2; white-space: pre;
+  letter-spacing: 0; font-kerning: none; font-variant-ligatures: none; color: var(--ink); }
+.ms-grid.lg { font-size: 45px; }   
+.ms-box.m-kk math { font-family: "Kkakdugi Drafting", math; font-weight: 300; font-size: 36px; }      
 
 .ms-pcb { position: relative; padding: 0; }
 .ms-pcbbox { position: absolute; inset: 10px; display: flex; align-items: center; justify-content: center; }
@@ -706,7 +710,9 @@ h2 u { text-decoration-thickness: 2px; text-underline-offset: .2em; }
   .ms-topics { padding-left: 40px; }
   .ms-nav { width: 34px; height: 44px; font-size: 1.3rem; margin-top: 0; }
   .ms-slide math { font-size: 20px; }
-  .ms-box.m-kk math { font-size: 22.5px; }
+  .ms-box.m-kk math { font-size: 28px; }
+  .ms-grid { font-size: 25px; }
+  .ms-grid.lg { font-size: 30px; }
   .ms-box { min-height: 170px; }
 }
 @media (prefers-reduced-motion: reduce) { .ms-slide, .ms-slide.is-on { transition: none; } }
@@ -815,7 +821,7 @@ OFL 1.1<br>
   <h3 class="sub-h"><span data-copy="math.heading">다양한 분야에서도 어울리는 깍두기 도면체</span></h3>
   <p data-copy="math.note" class="scene-note">도면에서 사용될 수 있는 수식, 화학식, 전기적 특성을 기입할 수 있도록 준비했습니다.<br>
 ※ 수식 조판(OpenType MATH), 수학용 이탤릭체, 수학용 윗/아래 첨자, 전기 기호 등</p>
-  <div class="cmp-sets ms-topics"><button type="button" data-topic="0" aria-pressed="true" class="on">전기/전자</button><button type="button" data-topic="1" aria-pressed="false">수식</button><button type="button" data-topic="2" aria-pressed="false">화학</button></div>
+  <div class="cmp-sets ms-topics"><button type="button" data-topic="0" aria-pressed="true" class="on">전기/전자</button><button type="button" data-topic="1" aria-pressed="false">수식</button><button type="button" data-topic="2" aria-pressed="false">화학</button><button type="button" data-topic="3" aria-pressed="false">각종 기호</button></div>
   <div class="ms-stage">
     <button type="button" class="ms-nav ms-prev" aria-label="이전 예시">‹</button>
     <div class="ms-cols" aria-live="polite">
@@ -823,6 +829,12 @@ OFL 1.1<br>
       <div class="ms-box m-kk"><div class="ms-slides">
         <div class="ms-slide ms-pcb is-on" data-topic="0" data-label="PCB 실크"><div class="ms-pcbbox" data-pcb="kk"></div></div>
         <div class="ms-slide" data-topic="0" data-label="논리 게이트"><math display="block"><mi>Y</mi><mo>=</mo><mo>¬</mo><mrow><mo>(</mo><mi>A</mi><mo>∧</mo><mi>B</mi><mo>)</mo></mrow><mo>=</mo><mi>A</mi><mo>⊼</mo><mi>B</mi><mspace width="1em"/><mi>A</mi><mo>⊻</mo><mi>B</mi></math></div>
+        <div class="ms-slide" data-topic="0" data-label="회로 기호"><div class="ms-grid lg" role="img" aria-label="회로 기호">─𜰉𜰉─𜰓─𜰏─
+─𜰋𜰌𜰍─𜰒
+─𜰙──𜰙𜰘─</div></div>
+        <div class="ms-slide" data-topic="0" data-label="NAND · OR 게이트"><div class="ms-grid lg" role="img" aria-label="NAND · OR 게이트">─┐　　─┐
+　𜰖𜰘─　𜰕─
+─┘　　─┘</div></div>
         <div class="ms-slide" data-topic="0" data-label="전원 기호"><math display="block"><mtext>⏻ ⏼ ⏽ ⭘ ⏾</mtext><mspace width="1em"/><mtext>⚠ ⚡ ↯</mtext></math></div>
         <div class="ms-slide" data-topic="0" data-label="직류 전원"><math display="block"><msub><mi>V</mi><mi>DC</mi></msub><mo>=</mo><mn>24</mn><mspace width="0.25em"/><mtext>V ⎓</mtext><mspace width="1em"/><mtext>⏚</mtext></math></div>
         <div class="ms-slide" data-topic="0" data-label="임피던스"><math display="block"><mi>Z</mi><mo>=</mo><mi>R</mi><mo>+</mo><mi>j</mi><mrow><mo>(</mo><mi>ω</mi><mi>L</mi><mo>−</mo><mfrac><mn>1</mn><mrow><mi>ω</mi><mi>C</mi></mrow></mfrac><mo>)</mo></mrow><mspace width="0.25em"/><mtext>Ω</mtext></math></div>
@@ -839,6 +851,38 @@ OFL 1.1<br>
         <div class="ms-slide" data-topic="2" data-label="평형"><math display="block"><msub><mi mathvariant="normal">N</mi><mn>2</mn></msub><mo>+</mo><mn>3</mn><msub><mi mathvariant="normal">H</mi><mn>2</mn></msub><mo>⇌</mo><mn>2</mn><mi mathvariant="normal">N</mi><msub><mi mathvariant="normal">H</mi><mn>3</mn></msub><mspace width="1em"/><mi>Δ</mi><mi>H</mi><mo>=</mo><mo>−</mo><mn>92</mn><mspace width="0.25em"/><mtext>kJ</mtext></math></div>
         <div class="ms-slide" data-topic="2" data-label="광합성"><math display="block"><mn>6</mn><mi mathvariant="normal">C</mi><msub><mi mathvariant="normal">O</mi><mn>2</mn></msub><mo>+</mo><mn>6</mn><msub><mi mathvariant="normal">H</mi><mn>2</mn></msub><mi mathvariant="normal">O</mi><mo>→</mo><msub><mi mathvariant="normal">C</mi><mn>6</mn></msub><msub><mi mathvariant="normal">H</mi><mn>12</mn></msub><msub><mi mathvariant="normal">O</mi><mn>6</mn></msub><mo>+</mo><mn>6</mn><msub><mi mathvariant="normal">O</mi><mn>2</mn></msub></math></div>
         <div class="ms-slide" data-topic="2" data-label="동위원소"><math display="block"><mmultiscripts><mi mathvariant="normal">U</mi><mprescripts/><mn>92</mn><mn>235</mn></mmultiscripts><mo>+</mo><mmultiscripts><mi mathvariant="normal">n</mi><mprescripts/><mn>0</mn><mn>1</mn></mmultiscripts><mo>→</mo><mmultiscripts><mi mathvariant="normal">Ba</mi><mprescripts/><mn>56</mn><mn>141</mn></mmultiscripts><mo>+</mo><mmultiscripts><mi mathvariant="normal">Kr</mi><mprescripts/><mn>36</mn><mn>92</mn></mmultiscripts><mo>+</mo><mn>3</mn><mmultiscripts><mi mathvariant="normal">n</mi><mprescripts/><mn>0</mn><mn>1</mn></mmultiscripts></math></div>
+        <div class="ms-slide" data-topic="3" data-label="경선 표 + 중선 구분선 + 음영·채움"><div class="ms-grid" role="img" aria-label="경선 표 + 중선 구분선 + 음영·채움">┌──┬──┐
+│░░│▓▓│
+┝━━┿━━┥
+│▒▒│██│
+└──┴──┘</div></div>
+        <div class="ms-slide" data-topic="3" data-label="이중선"><div class="ms-grid" role="img" aria-label="이중선">╔══╦══╗
+║　　║　　║
+╠══╬══╣
+╚══╩══╝</div></div>
+        <div class="ms-slide" data-topic="3" data-label="이중 대각선"><div class="ms-grid" role="img" aria-label="이중 대각선">　　　𜰟
+　　𜰟　
+　𜰟　　
+𜰟𜰠　　</div></div>
+        <div class="ms-slide" data-topic="3" data-label="블록 채움 (해칭 맞물림)"><div class="ms-grid" role="img" aria-label="블록 채움 (해칭 맞물림)">▛▀▀▜　▗▄▖
+▌　　▐　▐█▌
+▙▄▄▟　▝▀▘</div></div>
+        <div class="ms-slide" data-topic="3" data-label="중선 · 둥근 모서리"><div class="ms-grid" role="img" aria-label="중선 · 둥근 모서리">┏━━┳━━┓
+┃　　┃　　┃
+┗━━┻━━┛
+╭──────╮
+╰──────╯</div></div>
+        <div class="ms-slide" data-topic="3" data-label="╳ 격자"><div class="ms-grid" role="img" aria-label="╳ 격자">╳╳╳╳
+╳╳╳╳
+╳╳╳╳</div></div>
+        <div class="ms-slide" data-topic="3" data-label="상자 + 대각선"><div class="ms-grid" role="img" aria-label="상자 + 대각선">┌──┐
+│╲╱│
+│╱╲│
+└──┘</div></div>
+        <div class="ms-slide" data-topic="3" data-label="╱╲ 마름모"><div class="ms-grid" role="img" aria-label="╱╲ 마름모">　╱╲　
+╱　　╲
+╲　　╱
+　╲╱　</div></div>
       </div></div>
     </div>
     </div>
@@ -1048,8 +1092,8 @@ OFL 1.1<br>
   <h2 data-copy="coverage.heading">커버리지</h2>
   <div class="cov-head">
     <div>
-      <div class="big-n" data-copy="coverage.count">12,421</div>
-      <div class="big-d" data-copy="coverage.countdesc">한글 완성형 11,172자 전량 + 라틴/그리스/키릴/가나/도면/수학/전기기호 1,249자</div>
+      <div class="big-n" data-copy="coverage.count">12,606</div>
+      <div class="big-d" data-copy="coverage.countdesc">한글 완성형 11,172자 전량 + 라틴/그리스/키릴/가나/도면/수학/전기기호/괘선 1,434자</div>
     </div>
   </div>
   <p data-copy="coverage.note" class="scene-note">아래는 호환 문자 팔레트입니다.<br>
@@ -1079,7 +1123,9 @@ OFL 1.1<br>
     <div class="glyphrow"><div class="lbl">일본어 부호 : 9자</div><div class="row">、 。 「 」 『 』 ・ 〜 ～</div></div>
     <div class="glyphrow"><div class="lbl">히라가나 : 84자</div><div class="row">ぁ あ ぃ い ぅ う ぇ え ぉ お か が き ぎ く ぐ け げ こ ご さ ざ し じ す ず せ ぜ そ ぞ た だ ち ぢ っ つ づ て で と ど な に ぬ ね の は ば ぱ ひ び ぴ ふ ぶ ぷ へ べ ぺ ほ ぼ ぽ ま み む め も ゃ や ゅ ゆ ょ よ ら り る れ ろ ゎ わ を ん ゔ ゕ ゖ</div></div>
     <div class="glyphrow"><div class="lbl">가타카나 : 87자</div><div class="row">ァ ア ィ イ ゥ ウ ェ エ ォ オ カ ガ キ ギ ク グ ケ ゲ コ ゴ サ ザ シ ジ ス ズ セ ゼ ソ ゾ タ ダ チ ヂ ッ ツ ヅ テ デ ト ド ナ ニ ヌ ネ ノ ハ バ パ ヒ ビ ピ フ ブ プ ヘ ベ ペ ホ ボ ポ マ ミ ム メ モ ャ ヤ ュ ユ ョ ヨ ラ リ ル レ ロ ヮ ワ ヲ ン ヴ ヵ ヶ ヷ ヺ ー</div></div>
-    <div class="glyphrow"><div class="lbl">전기 기호 : 25자</div><div class="row">⏚ ⎓ ∿ ⏦ ⏧ ⌁ ⏛ ℧ ↯ ⏻ ⏼ ⏽ ⏾ ⭘ ⚠ ⚡ ☇ ⎍ ⎎ ⎏ ⎐ ⎑ ⎒ ⎔ ⏨</div></div>
+    <div class="glyphrow"><div class="lbl">전기 기호 : 44자</div><div class="row">⏚ ⎓ ∿ ⏦ ⏧ ⌁ ⏛ ℧ ↯ ⏻ ⏼ ⏽ ⏾ ⭘ ⚠ ⚡ ☇ ⎍ ⎎ ⎏ ⎐ ⎑ ⎒ ⎔ ⏨ 𜰈 𜰉 𜰊 𜰋 𜰌 𜰍 𜰎 𜰏 𜰐 𜰑 𜰒 𜰓 𜰔 𜰕 𜰖 𜰗 𜰘 𜰙 𜰚</div></div>
+    <div class="glyphrow"><div class="lbl">괘선(상자 그리기) : 134자</div><div class="row">─ ━ │ ┃ ┄ ┅ ┆ ┇ ┈ ┉ ┊ ┋ ┌ ┍ ┎ ┏ ┐ ┑ ┒ ┓ └ ┕ ┖ ┗ ┘ ┙ ┚ ┛ ├ ┝ ┞ ┟ ┠ ┡ ┢ ┣ ┤ ┥ ┦ ┧ ┨ ┩ ┪ ┫ ┬ ┭ ┮ ┯ ┰ ┱ ┲ ┳ ┴ ┵ ┶ ┷ ┸ ┹ ┺ ┻ ┼ ┽ ┾ ┿ ╀ ╁ ╂ ╃ ╄ ╅ ╆ ╇ ╈ ╉ ╊ ╋ ╌ ╍ ╎ ╏ ═ ║ ╒ ╓ ╔ ╕ ╖ ╗ ╘ ╙ ╚ ╛ ╜ ╝ ╞ ╟ ╠ ╡ ╢ ╣ ╤ ╥ ╦ ╧ ╨ ╩ ╪ ╫ ╬ ╭ ╮ ╯ ╰ ╱ ╲ ╳ ╴ ╵ ╶ ╷ ╸ ╹ ╺ ╻ ╼ ╽ ╾ ╿ 𜰛 𜰜 𜰝 𜰞 𜰟 𜰠</div></div>
+    <div class="glyphrow"><div class="lbl">블록/음영 : 32자</div><div class="row">▀ ▁ ▂ ▃ ▄ ▅ ▆ ▇ █ ▉ ▊ ▋ ▌ ▍ ▎ ▏ ▐ ░ ▒ ▓ ▔ ▕ ▖ ▗ ▘ ▙ ▚ ▛ ▜ ▝ ▞ ▟</div></div>
   </details>
 </section>
 
